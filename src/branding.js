@@ -94,7 +94,7 @@ const Branding = () => {
                 width: "100%",
               }}
             >
-              Go to Tata Metaverse
+              Tata Metaverse
             </Button>
           </Grid>
 
