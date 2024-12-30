@@ -76,7 +76,7 @@ const Branding = () => {
           Welcome, {userName}!
         </h1>
         <p style={{ fontSize: "1.2rem", marginBottom: "30px" }}>
-          Welcome to Tataverse. What would you like to do?
+          Welcome to Tata Metaverse. What would you like to do?
         </p>
 
         {/* Responsive Grid Layout for buttons */}
@@ -94,7 +94,7 @@ const Branding = () => {
                 width: "100%",
               }}
             >
-              Go to Tataverse
+              Go to Tata Metaverse
             </Button>
           </Grid>
 
