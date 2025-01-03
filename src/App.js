@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
-import Signup from "./oldsignup";
-import Branding from "./branding";
-import LandingPage from "./landingPage";
-import SignIn from "./signin";
+import Signup from "./tatatechverse-signup";
+import Branding from "./branding2";
+import LandingPage from "./landing2";
+import SignIn from "./tatatechverse-signin";
 
 const App = () => {
   return (
