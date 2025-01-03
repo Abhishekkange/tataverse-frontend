@@ -49,7 +49,7 @@ const SignUp = () => {
         new URLSearchParams({
           grant_type: "client_credentials",
           client_id: "abhishek",
-          client_secret: "bbNSyDiM8jvhiVwRdYW09PJwgGJezWpf"
+          client_secret: "YnU4G7uKncbblTBltOoY9fTS6ajGgFZA"
         }),
         {
           headers: {

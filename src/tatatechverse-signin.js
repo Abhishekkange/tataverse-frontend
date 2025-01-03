@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode"; // Use named import
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google"; // Import the required components
+import { v4 as uuidv4 } from "uuid";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -32,7 +34,7 @@ const Signin = () => {
       // Fetch the initial access token
       const requestData = {
         client_id: "abhishek",
-        client_secret: "bbNSyDiM8jvhiVwRdYW09PJwgGJezWpf",
+        client_secret: "YnU4G7uKncbblTBltOoY9fTS6ajGgFZA",
         grant_type: "password",
         username: email,
         password: password,
@@ -67,7 +69,7 @@ const Signin = () => {
         new URLSearchParams({
           grant_type: "client_credentials",
           client_id: "abhishek",
-          client_secret: "bbNSyDiM8jvhiVwRdYW09PJwgGJezWpf",
+          client_secret: "YnU4G7uKncbblTBltOoY9fTS6ajGgFZA",
         }),
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
@@ -100,6 +102,24 @@ const Signin = () => {
         error.response?.data?.error_description || "An error occurred while logging in.";
       setError(errorMessage);
     }
+  };
+
+  // Google Sign-In Handler
+  const handleGoogleLogin = (response) => {
+    console.log("Google Login Response:", response);
+    const token = response.credential;
+    console.log("User Token:", token);
+
+    const decoded = jwtDecode(token);
+    console.log("decoded", decoded);
+
+    const userName = decoded.name;
+    const id = uuidv4();
+    navigate("/branding", { state: { id, userName } });
+
+
+
+
   };
 
   return (
@@ -229,6 +249,27 @@ const Signin = () => {
             >
               Signin
             </button>
+
+            {/* Google SignIn Button */}
+            <GoogleOAuthProvider clientId="535912570456-3c93tuccirv1ovmfsc628teghs9g8amc.apps.googleusercontent.com">
+              <GoogleLogin 
+                onSuccess={handleGoogleLogin}
+                onError={(error) => console.log("Google Login Error:", error)}
+                style={{
+                  width: "50%",
+                  padding: "12px",
+                  backgroundColor: "#4285F4",
+                  color: "#FFFFFF",
+                  border: "none",
+                  borderRadius: "5px",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                  marginTop: "15px",
+                }}
+              >
+                Signin with Google
+              </GoogleLogin>
+            </GoogleOAuthProvider>
           </div>
         </div>
       </div>
