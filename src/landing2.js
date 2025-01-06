@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Landing = ({ username }) => {
   const navigate = useNavigate();
@@ -48,10 +49,33 @@ const Landing = ({ username }) => {
   };
 
   // Handle form submission
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (file && fileName) {
       setShowConfirmation(true);
       // Simulate file submission process (this could be an API call)
+
+      try {
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append("username", fileName);
+  
+        // Step 2: Upload the file
+        const uploadResponse = await axios.post(
+          "https://api.runtimetheory.com/api/upload",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+  
+        setFile(null); // Clear the file
+        setFileName(""); // Clear the file name input
+        setShowConfirmation(false); // Close confirmation popup
+      } catch (error) {
+        console.error("Error in confirmation API:", error);
+      }
       setTimeout(() => {
         alert("File submitted successfully!");
         setShowConfirmation(false);
