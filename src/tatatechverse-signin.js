@@ -105,7 +105,7 @@ const Signin = () => {
   };
 
   // Google Sign-In Handler
-  const handleGoogleLogin = (response) => {
+  const handleGoogleLogin = async (response) => {
     console.log("Google Login Response:", response);
     const token = response.credential;
     console.log("User Token:", token);
@@ -115,6 +115,18 @@ const Signin = () => {
 
     const userName = decoded.name;
     const id = uuidv4();
+    const form = {
+      id: id,
+      username: decoded.name,
+      email: decoded.email,
+    };
+
+    const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     navigate("/branding", { state: { id, userName } });
 
 
