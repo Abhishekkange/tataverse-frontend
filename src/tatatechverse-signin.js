@@ -154,7 +154,7 @@ const Signin = () => {
           }}
         >
           <span>TATA</span>
-          <span>technologies</span>
+          <span>Technologies</span>
         </div>
         <img
           src="your-logo-path.png"

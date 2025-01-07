@@ -119,7 +119,7 @@ const SignUp = () => {
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 20px" }}>
         <div style={{ display: "flex", gap: "10px", fontFamily: "'Arial', sans-serif", fontSize: "18px", fontWeight: "bold" }}>
           <span>TATA</span>
-          <span>technologies</span>
+          <span>Technologies</span>
         </div>
         <img src="your-logo-path.png" alt="Logo" style={{ width: "50px", height: "50px", cursor: "pointer" }} />
       </header>
