@@ -306,32 +306,48 @@ const Landing = ({ username }) => {
 
         {/* Right Div - Form and Upload functionality */}
         <div style={styles.rightBox}>
-          {/* Back button */}
-          <button
-            onClick={handleBack}
-            style={{
-              padding: "8px 20px",
-              backgroundColor: "#75E0E4",
-              color: "black",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontSize: "16px",
-              fontWeight: "bold",
-              alignSelf: "flex-start",
-              marginBottom: "20px",
-            }}
-          >
-            Back
-          </button>
+          {/* Back button container */}
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'flex-end',  // Align button to theright
+            width: '100%',
+            marginBottom: '20px'  // Space between button and welcometext
+          }}>
+            <button
+              onClick={handleBack}
+              style={{
+                padding: "8px 20px",
+                backgroundColor: "#75E0E4",
+                color: "black",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
+            >
+              Back
+            </button>
+          </div>
 
           {/* Welcome Message */}
-          <h2 style={{ fontSize: "18px", fontWeight: "bold", color: "#75E0E4", margin: "0px" }}>
+          <h2 style={{ 
+            fontSize: "18px", 
+            fontWeight: "bold", 
+            color: "#75E0E4", 
+            margin: "0px" 
+          }}>
             Welcome, {username}
           </h2>
 
-          {/* Rest of your existing content */}
-          <p style={{ fontSize: "34px", fontWeight: "bold", color: "#FFFFFF", marginBottom: "20px" }}>
+          {/* Rest of your content */}
+          <p style={{ 
+            fontSize: "34px", 
+            fontWeight: "bold", 
+            color: "#FFFFFF", 
+            marginBottom: "20px",
+            marginTop: "0px"
+          }}>
             Dive into the world of virtual reality (VR) and experience immersive environments and interactions.
           </p>
 
