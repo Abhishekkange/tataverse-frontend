@@ -151,6 +151,7 @@ const styles = {
       }
 
       const userEmail = decodedToken.email;
+      
       console.log("Extracted Email:", userEmail);
 
       // Fetch the second access token for admin operations
@@ -183,6 +184,18 @@ const styles = {
         const { username, id } = userData;
         console.log("Username:", username);
         console.log("User ID:", id);
+        
+        const form = {
+          id: id,
+          username: username,
+          email: userEmail,
+        };
+    
+        const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         navigate("/branding", { state: { id, userName: username } });
       } else {
