@@ -79,7 +79,7 @@ const Signin = () => {
     title: {
       fontFamily: "'Roboto', sans-serif",
       fontWeight: "bold",
-      fontSize: "44px",
+      fontSize: "50px",
       color: "#75E0E4",
       marginBottom: "0px",
     },
@@ -355,8 +355,8 @@ const Signin = () => {
         <div style={styles.section}>
           <div style={styles.formContainer}>
             <h1 style={styles.title}>Welcome to TATA Techverse</h1>
-            <h1 style={{ fontSize: "40px" }}>Login to get started</h1>
-            <p>
+            <h1 style={{ fontSize: "40px", marginTop: "20px", marginBottom: "0px" }}>Login to get started</h1>
+            <p style={{ marginBottom: "40px" }}>
               Don't have an account yet?{" "}
               <Link to="/signin" style={styles.link}>
                 Sign up
