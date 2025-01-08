@@ -87,7 +87,7 @@ const Signin = () => {
         { headers: { Authorization: `Bearer ${accessToken2}` } }
       );
 
-      // const userData = userResponse.data[0];
+      const userData = userResponse.data[0];
       // if (userData) {
       //   const { username, id } = userData;
       //   console.log("Username:", username);
