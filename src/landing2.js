@@ -237,9 +237,9 @@ const Landing = ({ username }) => {
             fontFamily: "'Arial', sans-serif",
             fontSize: "18px",
             fontWeight: "bold",
-            width: "200px",  // Add explicit width
-            height: "15px",  // Add explicit height
-            alignItems: "center"  // Center vertically
+            width: "200px",
+            height: "15px",
+            alignItems: "center"
           }}
         >
           <svg
@@ -252,8 +252,8 @@ const Landing = ({ username }) => {
               fill="white"
             ></path>
           </svg>
-
         </div>
+
         <svg
           className="aspect-[96/25]"
           viewBox="0 0 269.6 56.7"
@@ -292,32 +292,13 @@ const Landing = ({ username }) => {
             style={{ fill: 'currentColor', fillRule: 'evenodd' }}
           />
         </svg>
-
-        <button
-          onClick={handleBack}
-          style={{
-            padding: "8px 20px",
-            backgroundColor: "#75E0E4",
-            color: "black",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            fontSize: "16px",
-            fontWeight: "bold",
-            display: "flex",
-            alignItems: "center",
-            gap: "5px",
-          }}
-        >
-          Back
-        </button>
       </header>
 
       <div style={styles.container}>
         {/* Left Div - Image */}
         <div style={styles.leftBox}>
           <img
-            src="/landing-img.png"  // Update with the image path in the public folder
+            src="/landing-img.png"
             alt="Virtual Reality"
             style={styles.image}
           />
@@ -325,8 +306,31 @@ const Landing = ({ username }) => {
 
         {/* Right Div - Form and Upload functionality */}
         <div style={styles.rightBox}>
+          {/* Back button */}
+          <button
+            onClick={handleBack}
+            style={{
+              padding: "8px 20px",
+              backgroundColor: "#75E0E4",
+              color: "black",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              fontSize: "16px",
+              fontWeight: "bold",
+              alignSelf: "flex-start",
+              marginBottom: "20px",
+            }}
+          >
+            Back
+          </button>
+
           {/* Welcome Message */}
-          <h2 style={{ fontSize: "18px", fontWeight: "bold", color: "#75E0E4", margin: "0px" }}>Welcome, {username}</h2>
+          <h2 style={{ fontSize: "18px", fontWeight: "bold", color: "#75E0E4", margin: "0px" }}>
+            Welcome, {username}
+          </h2>
+
+          {/* Rest of your existing content */}
           <p style={{ fontSize: "34px", fontWeight: "bold", color: "#FFFFFF", marginBottom: "20px" }}>
             Dive into the world of virtual reality (VR) and experience immersive environments and interactions.
           </p>
