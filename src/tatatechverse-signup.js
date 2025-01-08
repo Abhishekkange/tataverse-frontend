@@ -67,7 +67,7 @@ const SignUp = () => {
 
       // Second API Request to create the user
       const userResponse = await axios.post(
-        "https://lemur-17.cloud-iam.com/auth/realms/tatatechnologies/users",
+        "https://lemur-17.cloud-iam.com/auth/admin/realms/tatatechnologies/users",
         {
           username: username,
           email: email,
