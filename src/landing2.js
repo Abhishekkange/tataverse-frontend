@@ -87,6 +87,10 @@ const Landing = ({ username }) => {
     }
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   // Styles
   const styles = {
     container: {
@@ -288,6 +292,25 @@ const Landing = ({ username }) => {
             style={{ fill: 'currentColor', fillRule: 'evenodd' }}
           />
         </svg>
+
+        <button
+          onClick={handleBack}
+          style={{
+            padding: "8px 20px",
+            backgroundColor: "#75E0E4",
+            color: "black",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            fontSize: "16px",
+            fontWeight: "bold",
+            display: "flex",
+            alignItems: "center",
+            gap: "5px",
+          }}
+        >
+          Back
+        </button>
       </header>
 
       <div style={styles.container}>
