@@ -91,8 +91,7 @@ const SignUp = () => {
       );
 
       if (userResponse.status === 201) {
-        // Redirect to the Sign In page after successful sign-up
-        // You can use `history.push('/signin')` or navigate programmatically here.
+       
         // For now, just log success
         navigate("/signin");
       } else {

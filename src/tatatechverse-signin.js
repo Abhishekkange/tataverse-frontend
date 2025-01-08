@@ -34,7 +34,7 @@ const Signin = () => {
       // Fetch the initial access token
       const requestData = {
         client_id: "abhishek",
-        client_secret: "YnU4G7uKncbblTBltOoY9fTS6ajGgFZA",
+        client_secret: "dSVuLepCsnskzRtzmmXE99PBYkNgapHP",
         grant_type: "password",
         username: email,
         password: password,
