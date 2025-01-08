@@ -507,6 +507,28 @@ const styles = {
               Signin
             </button>
           </div>
+
+          {/* Google SignIn Button */}
+          <GoogleOAuthProvider clientId="535912570456-3c93tuccirv1ovmfsc628teghs9g8amc.apps.googleusercontent.com">
+              <GoogleLogin 
+                onSuccess={handleGoogleLogin}
+                onError={(error) => console.log("Google Login Error:", error)}
+                style={{
+                  width: "50%",
+                  padding: "12px",
+                  backgroundColor: "#4285F4",
+                  color: "#FFFFFF",
+                  border: "none",
+                  borderRadius: "5px",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                  marginTop: "15px",
+                }}
+              >
+                Signin with Google
+              </GoogleLogin>
+            </GoogleOAuthProvider>
+          
         </div>
       </div>
     </div>
