@@ -117,9 +117,9 @@ const SignUp = () => {
       fontSize: "16px",
     },
     button: {
-      // display: "flex",
-      // alignItems: "center",
-      // justifyContent: "center",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       fontWeight: '500',
       width: "100%",
       padding: "12px",

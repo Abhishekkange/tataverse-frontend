@@ -93,9 +93,9 @@ const Signin = () => {
       fontSize: "16px",
     },
     button: {
-      // display: "flex",
-      // alignItems: "center",
-      // justifyContent: "center",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       fontWeight: '500',
       width: "54%",
       padding: "12px",
