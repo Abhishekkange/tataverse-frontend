@@ -73,8 +73,8 @@ const SignIn = () => {
             const response = await axios.post(
                 'http://localhost:8080/realms/myrealm/protocol/openid-connect/token',
                 new URLSearchParams({
-                    client_id: 'my-client-id', // Replace with your client ID
-                    client_secret: 'my-client-secret', // Replace with your client secret
+                    client_id: 'abhishekkange', // Replace with your client ID
+                    client_secret: 'TzDXZ4JYv2JIiNkaCzVUeTrkOEnfzMed', // Replace with your client secret
                     grant_type: 'password',
                     username: email,
                     password: password,

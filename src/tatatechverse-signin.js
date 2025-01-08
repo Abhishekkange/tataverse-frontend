@@ -41,7 +41,7 @@ const Signin = () => {
       };
 
       const response = await axios.post(
-        "http://localhost:8080/realms/my%20realm/protocol/openid-connect/token",
+        "https://lemur-17.cloud-iam.com/auth/realms/tatatechnologies/protocol/openid-connect/token",
         new URLSearchParams(requestData),
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
@@ -65,11 +65,11 @@ const Signin = () => {
 
       // Fetch the second access token for admin operations
       const tokenResponse = await axios.post(
-        "http://localhost:8080/realms/my%20realm/protocol/openid-connect/token",
+        "https://lemur-17.cloud-iam.com/auth/realms/tatatechnologies/protocol/openid-connect/token",
         new URLSearchParams({
           grant_type: "client_credentials",
           client_id: "abhishek",
-          client_secret: "YnU4G7uKncbblTBltOoY9fTS6ajGgFZA",
+          client_secret: "dSVuLepCsnskzRtzmmXE99PBYkNgapHP",
         }),
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
@@ -82,7 +82,7 @@ const Signin = () => {
 
       // Fetch user details using email
       const userResponse = await axios.get(
-        `http://localhost:8080/admin/realms/my%20realm/users?email=${userEmail}`,
+        `https://lemur-17.cloud-iam.com/auth/realms/tatatechnologies/users?email=${userEmail}`,
         { headers: { Authorization: `Bearer ${accessToken2}` } }
       );
 

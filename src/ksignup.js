@@ -88,8 +88,8 @@ const KSignup = () => {
             const response = await axios.post(
                 'http://localhost:8080/realms/myrealm/protocol/openid-connect/token',
                 new URLSearchParams({
-                    client_id: 'abhishek',
-                    client_secret: 'IFCFQEca46eBXHTXFseLRdF5vad0PuUK',
+                    client_id: 'abhishekkange',
+                    client_secret: 'TzDXZ4JYv2JIiNkaCzVUeTrkOEnfzMed',
                     grant_type: 'client_credentials',
                 }),
                 {

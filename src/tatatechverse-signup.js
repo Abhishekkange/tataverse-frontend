@@ -45,11 +45,11 @@ const SignUp = () => {
     try {
       // First API Request to get the access token
       const tokenResponse = await axios.post(
-        "http://localhost:8080/realms/my%20realm/protocol/openid-connect/token",
+        "https://lemur-17.cloud-iam.com/auth/realms/tatatechnologies/protocol/openid-connect/token",
         new URLSearchParams({
           grant_type: "client_credentials",
           client_id: "abhishek",
-          client_secret: "YnU4G7uKncbblTBltOoY9fTS6ajGgFZA"
+          client_secret: "dSVuLepCsnskzRtzmmXE99PBYkNgapHP"
         }),
         {
           headers: {
@@ -67,7 +67,7 @@ const SignUp = () => {
 
       // Second API Request to create the user
       const userResponse = await axios.post(
-        "http://localhost:8080/admin/realms/my%20realm/users",
+        "https://lemur-17.cloud-iam.com/auth/realms/tatatechnologies/users",
         {
           username: username,
           email: email,
