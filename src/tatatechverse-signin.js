@@ -82,7 +82,7 @@ const Signin = () => {
 
       // Fetch user details using email
       const userResponse = await axios.get(
-        `https://lemur-17.cloud-iam.com/auth/realms/tatatechnologies/users?email=${userEmail}`,
+        `https://lemur-17.cloud-iam.com/auth/admin/realms/tatatechnologies/users?email=${userEmail}`,
         { headers: { Authorization: `Bearer ${accessToken2}` } }
       );
 
