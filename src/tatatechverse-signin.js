@@ -75,6 +75,7 @@ const Signin = () => {
       );
 
       const accessToken2 = tokenResponse.data.access_token;
+      console.log(accessToken2)
       if (!accessToken2) {
         setError("Failed to get admin access token.");
         return;
@@ -86,16 +87,17 @@ const Signin = () => {
         { headers: { Authorization: `Bearer ${accessToken2}` } }
       );
 
-      const userData = userResponse.data[0];
-      if (userData) {
-        const { username, id } = userData;
-        console.log("Username:", username);
-        console.log("User ID:", id);
+      // const userData = userResponse.data[0];
+      // if (userData) {
+      //   const { username, id } = userData;
+      //   console.log("Username:", username);
+      //   console.log("User ID:", id);
 
-        navigate("/branding", { state: { id, userName: username } });
-      } else {
-        setError("User not found.");
-      }
+      //   navigate("/branding", { state: { id, userName: username } });
+      // } else {
+      //   setError("User not found.");
+      // }
+      console.log("api called")
     } catch (error) {
       console.error("Login failed:", error);
       const errorMessage =
