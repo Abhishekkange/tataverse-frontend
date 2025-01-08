@@ -93,6 +93,9 @@ const Signin = () => {
       fontSize: "16px",
     },
     button: {
+      // display: "flex",
+      // alignItems: "center",
+      // justifyContent: "center",
       fontWeight: '500',
       width: "54%",
       padding: "12px",
@@ -359,7 +362,7 @@ const Signin = () => {
             <p style={{ marginBottom: "40px" }}>
               Don't have an account yet?{" "}
               <Link to="/signin" style={styles.link}>
-                Sign up
+                Signup
               </Link>
             </p>
 
@@ -381,7 +384,7 @@ const Signin = () => {
             {error && <p style={styles.error}>{error}</p>}
 
             <button onClick={handleLogin} style={styles.button}>
-              Signin
+              Login
             </button>
 
             <div style={styles.divider}>
