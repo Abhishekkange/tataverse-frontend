@@ -88,15 +88,15 @@ const Signin = () => {
       );
 
       const userData = userResponse.data[0];
-      // if (userData) {
-      //   const { username, id } = userData;
-      //   console.log("Username:", username);
-      //   console.log("User ID:", id);
+      if (userData) {
+        const { username, id } = userData;
+        console.log("Username:", username);
+        console.log("User ID:", id);
 
-      //   navigate("/branding", { state: { id, userName: username } });
-      // } else {
-      //   setError("User not found.");
-      // }
+        navigate("/branding", { state: { id, userName: username } });
+      } else {
+        setError("User not found.");
+      }
       console.log("userData", userData)
       console.log("api called")
     } catch (error) {
