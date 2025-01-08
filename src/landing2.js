@@ -335,46 +335,50 @@ const Landing = ({ username }) => {
             Dive into the world of virtual reality (VR) and experience immersive environments and interactions.
           </p>
 
-          {/* Upload Instruction */}
-          <h3 style={{ fontSize: "20px", fontWeight: "100", color: "#FFFFFF" }}>Upload your VR files to get started</h3>
+         {/* Upload Instruction */}
+<h3 style={{ fontSize: "20px", fontWeight: "100", color: "#FFFFFF" }}>
+  Upload your VR files to get started
+</h3>
 
-          {/* Drag-and-drop zone */}
-          <div
-            style={{
-              ...styles.dropzone,
-              ...(isDragActive ? styles.dropzoneActive : {}),
-              pointerEvents: showConfirmation ? "none" : "auto",
-            }}
-            onClick={() => fileInputRef.current.click()}  // Trigger the file input on click
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleFileDrop}
-          >
-            <p style={styles.dropzoneText}>
-              {file ? `Selected File: ${fileName}` : "Drag & drop your VR files here or browse your PC"}
-            </p>
-            {/* <input
-              ref={fileInputRef}  // Reference to the hidden file input
-              type="file"
-              accept="*"
-              onChange={handleFileInputChange}
-              style={{
-                ...styles.fileInput,
-                pointerEvents: showConfirmation ? "none" : "auto",
-              }}
-            /> */}
-          </div>
+{/* Drag-and-drop zone */}
+<div
+  style={{
+    ...styles.dropzone,
+    ...(isDragActive ? styles.dropzoneActive : {}),
+    pointerEvents: showConfirmation ? "none" : "auto",
+  }}
+  onClick={() => fileInputRef.current && fileInputRef.current.click()} // Trigger the file input on click
+  onDragOver={handleDragOver}
+  onDragLeave={handleDragLeave}
+  onDrop={handleFileDrop}
+>
+  <p style={styles.dropzoneText}>
+    {file ? `Selected File: ${fileName}` : "Drag & drop your VR files here or browse your PC"}
+  </p>
 
-          {/* Conditionally render the input field for file name if file is selected */}
-          {file && (
-            <input
-              type="text"
-              placeholder="Enter file name"
-              value={fileName}
-              onChange={handleFileNameChange}
-              style={styles.inputField}
-            />
-          )}
+  {/* Hidden file input */}
+  <input
+    ref={fileInputRef} // Reference to the hidden file input
+    type="file"
+    accept="*"
+    onChange={handleFileInputChange}
+    style={{
+      display: "none", // Hide the input element
+      pointerEvents: showConfirmation ? "none" : "auto",
+    }}
+  />
+</div>
+
+{/* Conditionally render the input field for file name if a file is selected */}
+{file && (
+  <input
+    type="text"
+    placeholder="Enter file name"
+    value={fileName}
+    onChange={handleFileNameChange}
+    style={styles.inputField}
+  />
+)}
 
           {/* Submit button */}
           <button
