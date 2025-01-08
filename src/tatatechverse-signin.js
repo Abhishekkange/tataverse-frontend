@@ -519,9 +519,7 @@ const styles = {
             <button onClick={handleLogin} style={styles.button}>
               Signin
             </button>
-          </div>
-
-          {/* Google SignIn Button */}
+            {/* Google SignIn Button */}
           <GoogleOAuthProvider clientId="535912570456-3c93tuccirv1ovmfsc628teghs9g8amc.apps.googleusercontent.com">
               <GoogleLogin 
                 onSuccess={handleGoogleLogin}
@@ -541,6 +539,9 @@ const styles = {
                 Signin with Google
               </GoogleLogin>
             </GoogleOAuthProvider>
+          </div>
+
+          
           
         </div>
       </div>
