@@ -97,6 +97,7 @@ const Signin = () => {
       // } else {
       //   setError("User not found.");
       // }
+      console.log("userData", userData)
       console.log("api called")
     } catch (error) {
       console.error("Login failed:", error);
