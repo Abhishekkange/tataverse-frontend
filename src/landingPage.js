@@ -85,7 +85,7 @@ const LandingPage = ({ userName, id }) => {
 
       // Step 2: Upload the file
       const uploadResponse = await axios.post(
-        "http://3.108.55.122/api/saveUser/api/upload",
+        ".https://api.runtimetheory.com/api/saveUser/api/upload",
         formData,
         {
           headers: {

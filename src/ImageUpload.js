@@ -52,7 +52,7 @@ const ImageUpload = () => {
 
     try {
       // Call the API to get the image URL by username
-      const response = await axios.get(`http://3.108.55.122/api/getImageUrl/${username}`);
+      const response = await axios.get(`https://api.runtimetheory.com/api/getImageUrl/${username}`);
       setImageUrl(response.data.imageUrl);
       console.log('Image URL:', response.data.imageUrl);
     } catch (error) {
