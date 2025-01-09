@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 const styles = `
 .signup-container {
@@ -88,6 +89,7 @@ const SignIn = () => {
 
             // Log the user token
             console.log('User Token:', response.data.access_token);
+            Navigate('/signin')
         } catch (err) {
             console.error('Error during signup:', err);
             setError('Failed to sign up. Please check your details and try again.');
