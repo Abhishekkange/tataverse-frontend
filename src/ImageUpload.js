@@ -30,7 +30,7 @@ const ImageUpload = () => {
 
     try {
       // Call the API to upload the image
-      const response = await axios.post('https://api.runtimetheory.com/api/upload', formData, {
+      const response = await axios.post('http://3.108.55.122/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -52,7 +52,7 @@ const ImageUpload = () => {
 
     try {
       // Call the API to get the image URL by username
-      const response = await axios.get(`https://api.runtimetheory.com/api/getImageUrl/${username}`);
+      const response = await axios.get(`http://3.108.55.122/api/getImageUrl/${username}`);
       setImageUrl(response.data.imageUrl);
       console.log('Image URL:', response.data.imageUrl);
     } catch (error) {
