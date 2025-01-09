@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link for routing
 import axios from "axios"; // Import axios
 import { useNavigate } from "react-router-dom";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import { v4 as uuidv4 } from "uuid";
 
 
 const SignUp = () => {
@@ -114,6 +117,9 @@ const SignUp = () => {
       fontSize: "16px",
     },
     button: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       fontWeight: '500',
       width: "100%",
       padding: "12px",
@@ -136,6 +142,23 @@ const SignUp = () => {
       fontWeight: "100",
       color: "#FFFFFF",
     },
+    divider: {
+      width: '95%',
+      display: 'flex',
+      alignItems: 'center',
+      margin: '20px 0',
+      gap: '10px',
+    },
+    line: {
+      flex: 1,
+      height: '1px',
+      backgroundColor: '#FFFFFF',
+    },
+    orText: {
+      color: '#FFFFFF',
+      padding: '0 10px',
+      fontSize: '14px',
+    }
   };
 
   // Check if all fields are filled
@@ -226,95 +249,30 @@ const SignUp = () => {
     }
   };
 
-  // return (
-  //   <div>
-  //     <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 20px" }}>
-  //       <div style={{ display: "flex", gap: "10px", fontFamily: "'Arial', sans-serif", fontSize: "18px", fontWeight: "bold" }}>
-  //         <span>TATA</span>
-  //         <span>Technologies</span>
-  //       </div>
-  //       <img src="your-logo-path.png" alt="Logo" style={{ width: "50px", height: "50px", cursor: "pointer" }} />
-  //     </header>
+  const handleGoogleLogin = async (response) => {
+    console.log("Google Login Response:", response);
+    const token = response.credential;
+    console.log("User Token:", token);
 
-  //     <div style={{ display: "flex", justifyContent: "space-between", padding: "20px", gap: "20px" }}>
-  //       <div style={{ flex: "1", padding: "20px", color: "#FFFFFF" }}>
-  //         <img
-  //           src="/plane-image.png"
-  //           alt="Left Section Image"
-  //           style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-  //         />
-  //       </div>
+    const decoded = jwtDecode(token);
+    console.log("decoded", decoded);
 
-  //       <div style={{ flex: "1", padding: "20px", color: "#FFFFFF" }}>
-  //         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-  //           <h1 style={{ fontFamily: "'Roboto', sans-serif", fontWeight: "bold", fontSize: "44px", color: "#75E0E4", marginBottom: "40px" }}>
-  //             Sign Up
-  //           </h1>
-  //           <h1 style={{ marginBottom: "10px" }}>Sign up to get started</h1>
-  //           <p>
-  //             Already have an account?{" "}
-  //             <Link to="/signin" style={{ color: "#FFFFFF", textDecoration: "underline" }}>
-  //               Sign In
-  //             </Link>
-  //           </p>
+    const userName = decoded.name;
+    const id = uuidv4();
+    const form = {
+      id: id,
+      username: decoded.name,
+      email: decoded.email,
+    };
 
-  //           {/* Input Fields */}
-  //           <div style={{ display: "flex", gap: "20px" }}>
-  //             <input
-  //               type="text"
-  //               placeholder="First Name"
-  //               value={firstName}
-  //               onChange={(e) => setFirstName(e.target.value)}
-  //               style={{ width: "48%", padding: "10px", marginBottom: "15px", borderRadius: "5px", backgroundColor: "#2F0B33", color: "#FFFFFF", border: "1px solid #FFFFFF", fontSize: "16px" }}
-  //             />
-  //             <input
-  //               type="text"
-  //               placeholder="Last Name"
-  //               value={lastName}
-  //               onChange={(e) => setLastName(e.target.value)}
-  //               style={{ width: "48%", padding: "10px", marginBottom: "15px", borderRadius: "5px", backgroundColor: "#2F0B33", color: "#FFFFFF", border: "1px solid #FFFFFF", fontSize: "16px" }}
-  //             />
-  //           </div>
+    const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  //           <div style={{ display: "flex", gap: "20px" }}>
-  //             <input
-  //               type="text"
-  //               placeholder="Username"
-  //               value={username}
-  //               onChange={(e) => setUsername(e.target.value)}
-  //               style={{ width: "48%", padding: "10px", marginBottom: "15px", borderRadius: "5px", backgroundColor: "#2F0B33", color: "#FFFFFF", border: "1px solid #FFFFFF", fontSize: "16px" }}
-  //             />
-  //             <input
-  //               type="email"
-  //               placeholder="Email"
-  //               value={email}
-  //               onChange={(e) => setEmail(e.target.value)}
-  //               style={{ width: "48%", padding: "10px", marginBottom: "15px", borderRadius: "5px", backgroundColor: "#2F0B33", color: "#FFFFFF", border: "1px solid #FFFFFF", fontSize: "16px" }}
-  //             />
-  //           </div>
-
-  //           <input
-  //             type="password"
-  //             placeholder="Password"
-  //             value={password}
-  //             onChange={(e) => setPassword(e.target.value)}
-  //             style={{ width: "100%", padding: "10px", marginBottom: "15px", borderRadius: "5px", backgroundColor: "#2F0B33", color: "#FFFFFF", border: "1px solid #FFFFFF", fontSize: "16px" }}
-  //           />
-
-  //           {/* Error Message */}
-  //           {error && <p style={{ color: "red" }}>{error}</p>}
-
-  //           <button
-  //             onClick={handleSignUp}
-  //             style={{ width: "100%", padding: "12px", backgroundColor: "#75E0E4", color: "#FFFFFF", border: "none", borderRadius: "5px", fontSize: "16px", cursor: "pointer" }}
-  //           >
-  //             Sign Up
-  //           </button>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
+    navigate("/branding", { state: { id, userName } });
+  };
 
   return (
     <div>
@@ -412,11 +370,11 @@ const SignUp = () => {
 
         <div style={styles.section}>
           <div style={styles.formContainer}>
-            <h1 style={styles.title}>Welcome</h1>
+            <h1 style={styles.title}>Sign Up</h1>
             {/* <h1 style={{ marginBottom: "10px" }}>Sign up to get started</h1> */}
             <p style={styles.signInText}>
               Already have an account ?{" "}
-              <Link to="/signin" style={styles.link}>
+              <Link to="/" style={styles.link}>
                 Login
               </Link>
             </p>
@@ -467,6 +425,23 @@ const SignUp = () => {
 
             <button onClick={handleSignUp} style={styles.button}>
               Create Account
+            </button>
+
+            <div style={styles.divider}>
+              <div style={styles.line}></div>
+              <span style={styles.orText}>OR</span>
+              <div style={styles.line}></div>
+            </div>
+
+            <button style={styles.button}>
+              <GoogleOAuthProvider clientId="535912570456-3c93tuccirv1ovmfsc628teghs9g8amc.apps.googleusercontent.com">
+                <GoogleLogin
+                  onSuccess={handleGoogleLogin}
+                  onError={(error) => console.log("Google Login Error:", error)}
+                >
+                  Signup with Google
+                </GoogleLogin>
+              </GoogleOAuthProvider>
             </button>
           </div>
         </div>

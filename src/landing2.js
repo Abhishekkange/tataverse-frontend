@@ -10,6 +10,7 @@ const Landing = ({ username }) => {
   const [fileName, setFileName] = useState("");
   const [isDragActive, setIsDragActive] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   // Ref to the file input
   const fileInputRef = useRef(null);
@@ -51,15 +52,14 @@ const Landing = ({ username }) => {
   // Handle form submission
   const handleSubmit = async () => {
     if (file && fileName) {
+      setIsUploading(true);
       setShowConfirmation(true);
-      // Simulate file submission process (this could be an API call)
 
       try {
         const formData = new FormData();
         formData.append("image", file);
         formData.append("username", fileName);
-  
-        // Step 2: Upload the file
+
         const uploadResponse = await axios.post(
           "https://api.runtimetheory.com/api/upload",
           formData,
@@ -69,87 +69,30 @@ const Landing = ({ username }) => {
             },
           }
         );
-  
-        setFile(null); // Clear the file
-        setFileName(""); // Clear the file name input
-        setShowConfirmation(false); // Close confirmation popup
+
+        setTimeout(() => {
+          alert("File submitted successfully!");
+          setShowConfirmation(false);
+          setFile(null);
+          setFileName("");
+          setIsUploading(false);
+        }, 2000);
+
       } catch (error) {
         console.error("Error in confirmation API:", error);
+        setIsUploading(false);
       }
-      setTimeout(() => {
-        alert("File submitted successfully!");
-        setShowConfirmation(false);
-        setFile(null);
-        setFileName("");
-      }, 2000);
     } else {
       alert("Please select a file and enter a file name.");
     }
   };
 
-  // // Styles
-  // const styles = {
-  //   container: {
-  //     display: "flex",
-  //     justifyContent: "space-between",
-  //     alignItems: "center",
-  //     padding: "20px",
-  //   },
-  //   leftBox: {
-  //     flex: 1,
-  //     padding: "20px",
-  //   },
-  //   rightBox: {
-  //     flex: 1,
-  //     color: "#FFFFFF",
-  //     padding: "20px",
-  //   },
-  //   dropzone: {
-  //     border: "2px dashed #fff",
-  //     borderRadius: "10px",
-  //     padding: "20px",
-  //     textAlign: "center",
-  //     cursor: "pointer",
-  //     transition: "all 0.3s ease",
-  //   },
-  //   dropzoneActive: {
-  //     borderColor: "#4caf50", // Green color when drag is active
-  //   },
-  //   dropzoneText: {
-  //     color: "#fff",
-  //     fontSize: "16px",
-  //   },
-  //   fileInput: {
-  //     display: "none", // Hide the file input
-  //   },
-  //   inputField: {
-  //     width: "100%",
-  //     padding: "10px",
-  //     margin: "20px 0",
-  //     borderRadius: "5px",
-  //     border: "1px solid #ddd",
-  //     backgroundColor: "#fff",
-  //     color: "#333",
-  //   },
-  //   submitButton: {
-  //     padding: "10px 20px",
-  //     border: "none",
-  //     backgroundColor: "#4caf50",
-  //     color: "#fff",
-  //     fontSize: "16px",
-  //     cursor: "pointer",
-  //     borderRadius: "5px",
-  //   },
-  //   image: {
-  //     width: "100%",
-  //     height: "auto",
-  //     borderRadius: "10px",
-  //     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-  //   },
-  // };
+  const handleBack = () => {
+    navigate(-1);
+  };
 
-   // Styles
-   const styles = {
+  // Styles
+  const styles = {
     container: {
       display: "flex",
       justifyContent: "space-between",
@@ -196,7 +139,7 @@ const Landing = ({ username }) => {
     dropzoneText: {
       color: "#fff",
       fontSize: "16px",
-      
+
     },
     fileInput: {
       display: "none", // Hide the file input
@@ -230,7 +173,41 @@ const Landing = ({ username }) => {
       objectPosition: "left",
       // boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     },
+    loadingContainer: {
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    bouncingBall: {
+      width: '20px',
+      height: '20px',
+      backgroundColor: '#250929',
+      borderRadius: '50%',
+      animation: 'bounce 1.5s ease-in-out infinite',
+      position: 'absolute',
+      boxShadow: '0 0 10px rgba(37, 9, 41, 0.3)',
+    }
   };
+
+  const keyframes = `
+    @keyframes bounce {
+      0% {
+        left: 0px;
+        transform: translateX(0%) scale(1);
+      }
+      50% {
+        left: calc(100% - 20px);
+        transform: scale(1.2);
+      }
+      100% {
+        left: 0px;
+        transform: translateX(0%) scale(1);
+      }
+    }
+  `;
 
   useEffect(() => {
     document.body.style.backgroundColor = "#2F0B33";
@@ -260,9 +237,9 @@ const Landing = ({ username }) => {
             fontFamily: "'Arial', sans-serif",
             fontSize: "18px",
             fontWeight: "bold",
-            width: "200px",  // Add explicit width
-            height: "15px",  // Add explicit height
-            alignItems: "center"  // Center vertically
+            width: "200px",
+            height: "15px",
+            alignItems: "center"
           }}
         >
           <svg
@@ -275,8 +252,8 @@ const Landing = ({ username }) => {
               fill="white"
             ></path>
           </svg>
-
         </div>
+
         <svg
           className="aspect-[96/25]"
           viewBox="0 0 269.6 56.7"
@@ -322,7 +299,7 @@ const Landing = ({ username }) => {
         {/* Left Div - Image */}
         <div style={styles.leftBox}>
           <img
-            src="/landing-img.png"  // Update with the image path in the public folder
+            src="/landing-img.png"
             alt="Virtual Reality"
             style={styles.image}
           />
@@ -330,66 +307,119 @@ const Landing = ({ username }) => {
 
         {/* Right Div - Form and Upload functionality */}
         <div style={styles.rightBox}>
+          {/* Back button container */}
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'flex-end',  // Align button to theright
+            width: '100%',
+            marginBottom: '20px'  // Space between button and welcometext
+          }}>
+            <button
+              onClick={handleBack}
+              style={{
+                padding: "8px 20px",
+                backgroundColor: "#75E0E4",
+                color: "black",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
+            >
+              Back
+            </button>
+          </div>
+
           {/* Welcome Message */}
-          <h2 style={{ fontSize: "18px", fontWeight: "bold", color: "#75E0E4", margin: "0px" }}>Welcome, {username}</h2>
-          <p style={{ fontSize: "34px", fontWeight: "bold", color: "#FFFFFF", marginBottom: "20px" }}>
+          <h2 style={{ 
+            fontSize: "18px", 
+            fontWeight: "bold", 
+            color: "#75E0E4", 
+            margin: "0px" 
+          }}>
+            Welcome, {username}
+          </h2>
+
+          {/* Rest of your content */}
+          <p style={{ 
+            fontSize: "34px", 
+            fontWeight: "bold", 
+            color: "#FFFFFF", 
+            marginBottom: "20px",
+            marginTop: "0px"
+          }}>
             Dive into the world of virtual reality (VR) and experience immersive environments and interactions.
           </p>
 
-         {/* Upload Instruction */}
-<h3 style={{ fontSize: "20px", fontWeight: "100", color: "#FFFFFF" }}>
-  Upload your VR files to get started
-</h3>
+          {/* Upload Instruction */}
+          <h3 style={{ fontSize: "20px", fontWeight: "100", color: "#FFFFFF" }}>
+            Upload your VR files to get started
+          </h3>
 
-{/* Drag-and-drop zone */}
-<div
-  style={{
-    ...styles.dropzone,
-    ...(isDragActive ? styles.dropzoneActive : {}),
-    pointerEvents: showConfirmation ? "none" : "auto",
-  }}
-  onClick={() => fileInputRef.current && fileInputRef.current.click()} // Trigger the file input on click
-  onDragOver={handleDragOver}
-  onDragLeave={handleDragLeave}
-  onDrop={handleFileDrop}
->
-  <p style={styles.dropzoneText}>
-    {file ? `Selected File: ${fileName}` : "Drag & drop your VR files here or browse your PC"}
-  </p>
+          {/* Drag-and-drop zone */}
+          <div
+            style={{
+              ...styles.dropzone,
+              ...(isDragActive ? styles.dropzoneActive : {}),
+              pointerEvents: showConfirmation ? "none" : "auto",
+            }}
+            onClick={() => fileInputRef.current && fileInputRef.current.click()} // Trigger the file input on click
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleFileDrop}
+          >
+            <p style={styles.dropzoneText}>
+              {file ? `Selected File: ${fileName}` : "Drag & drop your VR files here or browse your PC"}
+            </p>
 
-  {/* Hidden file input */}
-  <input
-    ref={fileInputRef} // Reference to the hidden file input
-    type="file"
-    accept="*"
-    onChange={handleFileInputChange}
-    style={{
-      display: "none", // Hide the input element
-      pointerEvents: showConfirmation ? "none" : "auto",
-    }}
-  />
-</div>
+            {/* Hidden file input */}
+            <input
+              ref={fileInputRef} // Reference to the hidden file input
+              type="file"
+              accept="*"
+              onChange={handleFileInputChange}
+              style={{
+                display: "none", // Hide the input element
+                pointerEvents: showConfirmation ? "none" : "auto",
+              }}
+            />
+          </div>
 
-{/* Conditionally render the input field for file name if a file is selected */}
-{file && (
-  <input
-    type="text"
-    placeholder="Enter file name"
-    value={fileName}
-    onChange={handleFileNameChange}
-    style={styles.inputField}
-  />
-)}
+          {/* Conditionally render the input field for file name if a file is selected */}
+          {file && (
+            <input
+              type="text"
+              placeholder="Enter file name"
+              value={fileName}
+              onChange={handleFileNameChange}
+              style={styles.inputField}
+            />
+          )}
 
           {/* Submit button */}
           <button
             onClick={handleSubmit}
-            style={{ ...styles.submitButton, pointerEvents: showConfirmation ? "none" : "auto" }}
+            style={{
+              ...styles.submitButton,
+              position: 'relative',
+              overflow: 'hidden',
+              height: '45px',
+              borderRadius: isUploading ? '25px' : '0px',
+              transition: 'all 0.3s ease',
+            }}
           >
-            Upload
+            {isUploading ? (
+              <div style={styles.loadingContainer}>
+                <div style={styles.bouncingBall} />
+              </div>
+            ) : (
+              'Upload'
+            )}
           </button>
         </div>
       </div>
+      <style>{keyframes}</style>
     </div>
   );
 };

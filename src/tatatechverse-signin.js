@@ -24,94 +24,114 @@ const Signin = () => {
   }, []);
 
   // Styles object
-const styles = {
-  body: {
-    backgroundColor: "#2F0B33",
-    margin: 0,
-    color: "#FFFFFF",
-    fontFamily: "Arial, sans-serif",
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "10px 20px",
-  },
- 
-  logo: {
-    display: "flex",
-    gap: "10px",
-    fontFamily: "'Arial', sans-serif",
-    fontSize: "18px",
-    fontWeight: "bold",
-    width: "200px",  // Add explicit width
-    height: "15px",  // Add explicit height
-    alignItems: "center"  // Center vertically
-  },
-  mainContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: "20px",
-    gap: "20px",
-  },
-  section: {
-    flex: 1,
-    padding: "20px",
-    color: "#FFFFFF",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  sectionImage: {
-    width: "68%",
-    height: "100%",
-    minHeight: "500px",
-    borderRadius: "8px",
-    preserveAspectRatio: "xMidYMid meet",
-  },
-  formContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  title: {
-    fontFamily: "'Roboto', sans-serif",
-    fontWeight: "bold",
-    fontSize: "44px",
-    color: "#75E0E4",
-    marginBottom: "0px",
-  },
-  input: {
-    width: "50%",
-    padding: "10px",
-    marginBottom: "15px",
-    backgroundColor: "#250929",
-    color: "#FFFFFF",
-    border: "1px solid #FFFFFF",
-    fontSize: "16px",
-  },
-  button: {
-    fontWeight: '500',
-    width: "54%",
-    padding: "12px",
-    backgroundColor: "#75E0E4",
-    color: "black",
-    border: "none",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
-  link: {
-    color: "#FFFFFF",
-    textDecoration: "underline",
-    padding: "0px",
-    margin: "0px",
-  },
-  error: {
-    color: "red",
-  },
-};
+  const styles = {
+    body: {
+      backgroundColor: "#2F0B33",
+      margin: 0,
+      color: "#FFFFFF",
+      fontFamily: "Arial, sans-serif",
+    },
+    header: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "10px 20px",
+    },
+
+    logo: {
+      display: "flex",
+      gap: "10px",
+      fontFamily: "'Arial', sans-serif",
+      fontSize: "18px",
+      fontWeight: "bold",
+      width: "200px",  // Add explicit width
+      height: "15px",  // Add explicit height
+      alignItems: "center"  // Center vertically
+    },
+    mainContainer: {
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "20px",
+      gap: "20px",
+    },
+    section: {
+      flex: 1,
+      padding: "20px",
+      color: "#FFFFFF",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    sectionImage: {
+      width: "68%",
+      height: "100%",
+      minHeight: "500px",
+      borderRadius: "8px",
+      preserveAspectRatio: "xMidYMid meet",
+    },
+    formContainer: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      textAlign: "center",
+    },
+    title: {
+      fontFamily: "'Roboto', sans-serif",
+      fontWeight: "bold",
+      fontSize: "50px",
+      color: "#75E0E4",
+      marginBottom: "0px",
+    },
+    input: {
+      width: "50%",
+      padding: "10px",
+      marginBottom: "15px",
+      backgroundColor: "#250929",
+      color: "#FFFFFF",
+      border: "1px solid #FFFFFF",
+      fontSize: "16px",
+    },
+    button: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontWeight: '500',
+      width: "54%",
+      padding: "12px",
+      backgroundColor: "#75E0E4",
+      color: "black",
+      border: "none",
+      fontSize: "16px",
+      cursor: "pointer",
+    },
+    link: {
+      color: "#FFFFFF",
+      textDecoration: "underline",
+      padding: "0px",
+      margin: "0px",
+    },
+    error: {
+      color: "red",
+    },
+    divider: {
+      width: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      margin: '20px 0',
+      gap: '10px',
+    },
+    line: {
+      flex: 1,
+      height: '1px',
+      backgroundColor: '#FFFFFF',
+    },
+    orText: {
+      color: '#FFFFFF',
+      padding: '0 10px',
+      fontSize: '14px',
+    }
+  };
 
   const handleLogin = async () => {
     setError("");
@@ -151,7 +171,7 @@ const styles = {
       }
 
       const userEmail = decodedToken.email;
-      
+
       console.log("Extracted Email:", userEmail);
 
       // Fetch the second access token for admin operations
@@ -184,13 +204,13 @@ const styles = {
         const { username, id } = userData;
         console.log("Username:", username);
         console.log("User ID:", id);
-        
+
         const form = {
           id: id,
           username: username,
           email: userEmail,
         };
-    
+
         const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
           headers: {
             "Content-Type": "application/json",
@@ -241,159 +261,6 @@ const styles = {
 
   };
 
-  // return (
-  //   <div>
-  //     <header
-  //       style={{
-  //         display: "flex",
-  //         justifyContent: "space-between",
-  //         alignItems: "center",
-  //         padding: "10px 20px",
-  //       }}
-  //     >
-  //       <div
-  //         style={{
-  //           display: "flex",
-  //           gap: "10px",
-  //           fontFamily: "'Arial', sans-serif",
-  //           fontSize: "18px",
-  //           fontWeight: "bold",
-  //         }}
-  //       >
-  //         <span>TATA</span>
-  //         <span>Technologies</span>
-  //       </div>
-  //       <img
-  //         src="your-logo-path.png"
-  //         alt="Logo"
-  //         style={{ width: "50px", height: "50px", cursor: "pointer" }}
-  //       />
-  //     </header>
-
-  //     <div
-  //       style={{
-  //         display: "flex",
-  //         justifyContent: "space-between",
-  //         padding: "20px",
-  //         gap: "20px",
-  //       }}
-  //     >
-  //       <div style={{ flex: "1", padding: "20px", color: "#FFFFFF" }}>
-  //         <img
-  //           src="/plane-image.png"
-  //           alt="Left Section Image"
-  //           style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-  //         />
-  //       </div>
-
-  //       <div style={{ flex: "1", padding: "20px", color: "#FFFFFF" }}>
-  //         <div
-  //           style={{
-  //             display: "flex",
-  //             flexDirection: "column",
-  //             alignItems: "center",
-  //             justifyContent: "center",
-  //             textAlign: "center",
-  //           }}
-  //         >
-  //           <h1
-  //             style={{
-  //               fontFamily: "'Roboto', sans-serif",
-  //               fontWeight: "bold",
-  //               fontSize: "44px",
-  //               color: "#75E0E4",
-  //               marginBottom: "40px",
-  //             }}
-  //           >
-  //             Welcome to TATA Techverse
-  //           </h1>
-  //           <h1 style={{ marginBottom: "10px" }}>Signin to get started</h1>
-  //           <p>
-  //             Don't have an account yet?{" "}
-  //             <Link
-  //               to="/signup"
-  //               style={{ color: "#FFFFFF", textDecoration: "underline" }}
-  //             >
-  //               Sign up
-  //             </Link>
-  //           </p>
-
-  //           <input
-  //             type="email"
-  //             placeholder="Email"
-  //             value={email}
-  //             onChange={(e) => setEmail(e.target.value)}
-  //             style={{
-  //               width: "50%",
-  //               padding: "10px",
-  //               marginBottom: "15px",
-  //               borderRadius: "5px",
-  //               backgroundColor: "#2F0B33",
-  //               color: "#FFFFFF",
-  //               border: "1px solid #FFFFFF",
-  //               fontSize: "16px",
-  //             }}
-  //           />
-  //           <input
-  //             type="password"
-  //             placeholder="Password"
-  //             value={password}
-  //             onChange={(e) => setPassword(e.target.value)}
-  //             style={{
-  //               width: "50%",
-  //               padding: "10px",
-  //               marginBottom: "15px",
-  //               borderRadius: "5px",
-  //               backgroundColor: "#2F0B33",
-  //               color: "#FFFFFF",
-  //               border: "1px solid #FFFFFF",
-  //               fontSize: "16px",
-  //             }}
-  //           />
-
-  //           {error && <p style={{ color: "red" }}>{error}</p>}
-
-  //           <button
-  //             onClick={handleLogin}
-  //             style={{
-  //               width: "50%",
-  //               padding: "12px",
-  //               backgroundColor: "#75E0E4",
-  //               color: "#FFFFFF",
-  //               border: "none",
-  //               borderRadius: "5px",
-  //               fontSize: "16px",
-  //               cursor: "pointer",
-  //             }}
-  //           >
-  //             Signin
-  //           </button>
-
-  //           {/* Google SignIn Button */}
-  //           <GoogleOAuthProvider clientId="535912570456-3c93tuccirv1ovmfsc628teghs9g8amc.apps.googleusercontent.com">
-  //             <GoogleLogin 
-  //               onSuccess={handleGoogleLogin}
-  //               onError={(error) => console.log("Google Login Error:", error)}
-  //               style={{
-  //                 width: "50%",
-  //                 padding: "12px",
-  //                 backgroundColor: "#4285F4",
-  //                 color: "#FFFFFF",
-  //                 border: "none",
-  //                 borderRadius: "5px",
-  //                 fontSize: "16px",
-  //                 cursor: "pointer",
-  //                 marginTop: "15px",
-  //               }}
-  //             >
-  //               Signin with Google
-  //             </GoogleLogin>
-  //           </GoogleOAuthProvider>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
   return (
     <div>
       <header style={styles.header}>
@@ -409,42 +276,42 @@ const styles = {
             ></path>
           </svg>
         </div>
-        <svg 
-          className="aspect-[96/25]" 
+        <svg
+          className="aspect-[96/25]"
           viewBox="0 0 269.6 56.7"
           style={{ width: '100px', height: '50px' }}
         >
           <title>The Tata group. Leadership with Trust.</title>
-          <polygon 
-            points="99.4 7.1 140.4 7.1 140.4 19.6 128.6 19.6 128.6 49.6 111.5 49.6 111.5 19.6 99.4 19.6 99.4 7.1 99.4 7.1" 
-            style={{fill: 'currentColor', fillRule: 'evenodd'}}
+          <polygon
+            points="99.4 7.1 140.4 7.1 140.4 19.6 128.6 19.6 128.6 49.6 111.5 49.6 111.5 19.6 99.4 19.6 99.4 7.1 99.4 7.1"
+            style={{ fill: 'currentColor', fillRule: 'evenodd' }}
           />
-          <polygon 
-            points="161.1 24.3 152.5 49.6 136.1 49.6 152.2 7.1 170 7.1 186.5 49.6 169.9 49.6 161.1 24.3 161.1 24.3" 
-            style={{fill: 'currentColor', fillRule: 'evenodd'}}
+          <polygon
+            points="161.1 24.3 152.5 49.6 136.1 49.6 152.2 7.1 170 7.1 186.5 49.6 169.9 49.6 161.1 24.3 161.1 24.3"
+            style={{ fill: 'currentColor', fillRule: 'evenodd' }}
           />
-          <polygon 
-            points="182.5 7.1 223.5 7.1 223.5 19.6 211.8 19.6 211.8 49.6 194.7 49.6 194.7 19.6 182.5 19.6 182.5 7.1 182.5 7.1" 
-            style={{fill: 'currentColor', fillRule: 'evenodd'}}
+          <polygon
+            points="182.5 7.1 223.5 7.1 223.5 19.6 211.8 19.6 211.8 49.6 194.7 49.6 194.7 19.6 182.5 19.6 182.5 7.1 182.5 7.1"
+            style={{ fill: 'currentColor', fillRule: 'evenodd' }}
           />
-          <polygon 
-            points="244.3 24.3 235.7 49.6 219.3 49.6 235.4 7.1 253.2 7.1 269.6 49.6 253 49.6 244.3 24.3 244.3 24.3" 
-            style={{fill: 'currentColor', fillRule: 'evenodd'}}
+          <polygon
+            points="244.3 24.3 235.7 49.6 219.3 49.6 235.4 7.1 253.2 7.1 269.6 49.6 253 49.6 244.3 24.3 244.3 24.3"
+            style={{ fill: 'currentColor', fillRule: 'evenodd' }}
           />
-          <path 
-            d="M253.6,387a26.77,26.77,0,0,0-4-5.7,39.11,39.11,0,0,0-15.3-9.7,61.38,61.38,0,0,0-20.8-3.6,59,59,0,0,0-20.8,3.6,39.86,39.86,0,0,0-15.3,9.7,23.61,23.61,0,0,0-4,5.7,169.71,169.71,0,0,1,35-4.8,3.39,3.39,0,0,1,2.7,1.1c.7.9.6,4,.6,5.4h0l-.4,36h4.4l-.4-36h0c0-1.4-.1-4.5.6-5.4a3.25,3.25,0,0,1,2.7-1.1c12.9.3,26.8,2.9,35,4.8Z" 
-            transform="translate(-170.9 -368)" 
-            style={{fill: 'currentColor', fillRule: 'evenodd'}}
+          <path
+            d="M253.6,387a26.77,26.77,0,0,0-4-5.7,39.11,39.11,0,0,0-15.3-9.7,61.38,61.38,0,0,0-20.8-3.6,59,59,0,0,0-20.8,3.6,39.86,39.86,0,0,0-15.3,9.7,23.61,23.61,0,0,0-4,5.7,169.71,169.71,0,0,1,35-4.8,3.39,3.39,0,0,1,2.7,1.1c.7.9.6,4,.6,5.4h0l-.4,36h4.4l-.4-36h0c0-1.4-.1-4.5.6-5.4a3.25,3.25,0,0,1,2.7-1.1c12.9.3,26.8,2.9,35,4.8Z"
+            transform="translate(-170.9 -368)"
+            style={{ fill: 'currentColor', fillRule: 'evenodd' }}
           />
-          <path 
-            d="M255.3,391.7a146.72,146.72,0,0,0-27.7-3.6c-6.8-.4-6.9,2.1-6.3,6.7a6.53,6.53,0,0,0,.2,1.1c2.3,13.6,5.2,25.3,5.6,27.3,16.7-3.8,28.7-14.4,28.7-26.8a14.76,14.76,0,0,0-.5-4.7Z" 
-            transform="translate(-170.9 -368)" 
-            style={{fill: 'currentColor', fillRule: 'evenodd'}}
+          <path
+            d="M255.3,391.7a146.72,146.72,0,0,0-27.7-3.6c-6.8-.4-6.9,2.1-6.3,6.7a6.53,6.53,0,0,0,.2,1.1c2.3,13.6,5.2,25.3,5.6,27.3,16.7-3.8,28.7-14.4,28.7-26.8a14.76,14.76,0,0,0-.5-4.7Z"
+            transform="translate(-170.9 -368)"
+            style={{ fill: 'currentColor', fillRule: 'evenodd' }}
           />
-          <path 
-            d="M205.6,394.8c.7-4.7.6-7.1-6.3-6.7a147.6,147.6,0,0,0-27.8,3.6,18.16,18.16,0,0,0-.6,4.6,21.93,21.93,0,0,0,6.3,15,39.11,39.11,0,0,0,15.3,9.7c2.3.8,4.7,1.5,7.1,2.1.5-1.9,3.4-13.8,5.7-27.7.2-.1.2-.4.3-.6Z" 
-            transform="translate(-170.9 -368)" 
-            style={{fill: 'currentColor', fillRule: 'evenodd'}}
+          <path
+            d="M205.6,394.8c.7-4.7.6-7.1-6.3-6.7a147.6,147.6,0,0,0-27.8,3.6,18.16,18.16,0,0,0-.6,4.6,21.93,21.93,0,0,0,6.3,15,39.11,39.11,0,0,0,15.3,9.7c2.3.8,4.7,1.5,7.1,2.1.5-1.9,3.4-13.8,5.7-27.7.2-.1.2-.4.3-.6Z"
+            transform="translate(-170.9 -368)"
+            style={{ fill: 'currentColor', fillRule: 'evenodd' }}
           />
         </svg>
       </header>
@@ -491,11 +358,11 @@ const styles = {
         <div style={styles.section}>
           <div style={styles.formContainer}>
             <h1 style={styles.title}>Welcome to TATA Techverse</h1>
-            <h1 style={{fontSize: "40px"}}>Login to get started</h1>
-            <p>
+            <h1 style={{ fontSize: "40px", marginTop: "20px", marginBottom: "0px" }}>Login to get started</h1>
+            <p style={{ marginBottom: "40px" }}>
               Don't have an account yet?{" "}
-              <Link to="/" style={styles.link}>
-                Sign up
+              <Link to="/signin" style={styles.link}>
+                Signup
               </Link>
             </p>
 
@@ -517,32 +384,30 @@ const styles = {
             {error && <p style={styles.error}>{error}</p>}
 
             <button onClick={handleLogin} style={styles.button}>
-              Signin
+              Login
             </button>
-            {/* Google SignIn Button */}
-          <GoogleOAuthProvider clientId="535912570456-3c93tuccirv1ovmfsc628teghs9g8amc.apps.googleusercontent.com">
-              <GoogleLogin 
-                onSuccess={handleGoogleLogin}
-                onError={(error) => console.log("Google Login Error:", error)}
-                style={{
-                  width: "50%",
-                  padding: "12px",
-                  backgroundColor: "#4285F4",
-                  color: "#FFFFFF",
-                  border: "none",
-                  borderRadius: "5px",
-                  fontSize: "16px",
-                  cursor: "pointer",
-                  marginTop: "15px",
-                }}
-              >
-                Signin with Google
-              </GoogleLogin>
-            </GoogleOAuthProvider>
+
+            <div style={styles.divider}>
+              <div style={styles.line}></div>
+              <span style={styles.orText}>OR</span>
+              <div style={styles.line}></div>
+            </div>
+
+            <button style={styles.button}>
+              <GoogleOAuthProvider clientId="535912570456-3c93tuccirv1ovmfsc628teghs9g8amc.apps.googleusercontent.com">
+                <GoogleLogin
+                  onSuccess={handleGoogleLogin}
+                  onError={(error) => console.log("Google Login Error:", error)}
+
+                >
+                  Signin with Google
+                </GoogleLogin>
+              </GoogleOAuthProvider>
+            </button>
           </div>
 
-          
-          
+
+
         </div>
       </div>
     </div>
