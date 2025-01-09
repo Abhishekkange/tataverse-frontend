@@ -30,7 +30,7 @@ const ImageUpload = () => {
 
     try {
       // Call the API to upload the image
-      const response = await axios.post('http://3.108.55.122/api/upload', formData, {
+      const response = await axios.post('https://api.runtimetheory.com/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -34,7 +34,7 @@ const Signup = () => {
 
       // Send the data to your API
       axios
-        .post("http://3.108.55.122/api/saveUser", form, {
+        .post("https://api.runtimetheory.com/api/saveUser", form, {
           headers: {
             "Content-Type": "application/json",
           },

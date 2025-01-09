@@ -33,7 +33,7 @@ const Signup = () => {
         updatedAt: Date.now(),
       };
 
-      const response = await axios.post("http://3.108.55.122/api/saveUser", form, {
+      const response = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
         headers: {
           "Content-Type": "application/json",
         },

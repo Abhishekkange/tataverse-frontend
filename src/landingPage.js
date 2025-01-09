@@ -44,7 +44,7 @@ const LandingPage = ({ userName, id }) => {
       try {
         // Step 1: Check if the image already exists
         const response = await axios.get(
-          `http://3.108.55.122/api/saveUser/getImageUrl/${fileName}`,
+          `https://api.runtimetheory.com/api/saveUser/getImageUrl/${fileName}`,
           formData,
           {
             headers: {

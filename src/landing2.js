@@ -61,7 +61,7 @@ const Landing = ({ username }) => {
         formData.append("username", fileName);
 
         const uploadResponse = await axios.post(
-          "http://3.108.55.122/api/upload",
+          "https://api.runtimetheory.com/api/upload",
           formData,
           {
             headers: {
