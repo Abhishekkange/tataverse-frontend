@@ -316,6 +316,7 @@ const Landing = ({ username }) => {
           />
         </svg>
       </header>
+      
 
       <div style={styles.container}>
         {/* Left Div - Image */}
