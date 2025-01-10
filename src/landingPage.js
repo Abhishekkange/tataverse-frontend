@@ -44,7 +44,7 @@ const LandingPage = ({ userName, id }) => {
       try {
         // Step 1: Check if the image already exists
         const response = await axios.get(
-          `https://api.runtimetheory.com/api/getImageUrl/${fileName}`,
+          `https://api.runtimetheory.com/api/saveUser/getImageUrl/${fileName}`,
           formData,
           {
             headers: {
@@ -85,7 +85,7 @@ const LandingPage = ({ userName, id }) => {
 
       // Step 2: Upload the file
       const uploadResponse = await axios.post(
-        "https://api.runtimetheory.com/api/upload",
+        ".https://api.runtimetheory.com/api/saveUser/api/upload",
         formData,
         {
           headers: {

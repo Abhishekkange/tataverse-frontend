@@ -20,7 +20,7 @@ const Branding = () => {
 
   // Function to handle "Enter TATA Techverse" button click
   const handleEnterClick = () => {
-    window.location.href = `https://runtimetheory.com/?id=${id}`;
+    window.open(`https://runtimetheory.com/?id=${id}`, '_blank');
   };
 
   // Function to handle "Upload Media Files" button click
