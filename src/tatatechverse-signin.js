@@ -393,7 +393,7 @@ const Signin = () => {
               <div style={styles.line}></div>
             </div>
 
-            <button style={styles.button}>
+            {/* <button style={styles.button}> */}
               <GoogleOAuthProvider clientId="535912570456-3c93tuccirv1ovmfsc628teghs9g8amc.apps.googleusercontent.com">
                 <GoogleLogin
                   onSuccess={handleGoogleLogin}
@@ -403,7 +403,7 @@ const Signin = () => {
                   Signin with Google
                 </GoogleLogin>
               </GoogleOAuthProvider>
-            </button>
+            {/* </button> */}
           </div>
 
 

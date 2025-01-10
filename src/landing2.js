@@ -171,6 +171,7 @@ const Landing = ({ username }) => {
       borderRadius: "0px",
       objectFit: "cover",
       objectPosition: "left",
+      marginRight: "40px",
       // boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     },
     loadingContainer: {
