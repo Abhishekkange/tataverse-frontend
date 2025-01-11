@@ -150,11 +150,64 @@ const Landing = () => {
     loadingText: {
       fontSize: "16px",
       fontWeight: "bold",
-      marginTop: "20px",
-      color: "#fff",
+      alignSelf: "center",
+      width: "50%",
     },
+    image: {
+      width: "55vw",
+      height: "85vh",
+      borderRadius: "0px",
+      objectFit: "cover",
+      objectPosition: "left",
+      // boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    },
+    loadingContainer: {
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    bouncingBall: {
+      width: '20px',
+      height: '20px',
+      backgroundColor: '#250929',
+      borderRadius: '50%',
+      animation: 'bounce 1.5s ease-in-out infinite',
+      position: 'absolute',
+      boxShadow: '0 0 10px rgba(37, 9, 41, 0.3)',
+    }
   };
 
+  const keyframes = `
+    @keyframes bounce {
+      0% {
+        left: 0px;
+        transform: translateX(0%) scale(1);
+      }
+      50% {
+        left: calc(100% - 20px);
+        transform: scale(1.2);
+      }
+      100% {
+        left: 0px;
+        transform: translateX(0%) scale(1);
+      }
+    }
+  `;
+
+  useEffect(() => {
+    document.body.style.backgroundColor = "#2F0B33";
+    document.body.style.margin = "0";
+    document.body.style.color = "#FFFFFF";
+    document.body.style.fontFamily = "Arial, sans-serif";
+    return () => {
+      document.body.style.backgroundColor = "";
+      document.body.style.color = "";
+      document.body.style.fontFamily = "";
+    };
+  }, []);
   return (
     <div style={styles.container}>
       <header style={{ marginBottom: "30px", textAlign: "center" }}>
