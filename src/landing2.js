@@ -5,7 +5,7 @@ import axios from "axios";
 const Landing = () => {
   const navigate = useNavigate();
 
-  const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100 MB in bytes
+  const MAX_FILE_SIZE = 200 * 1024 * 1024; // 100 MB in bytes
 
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
