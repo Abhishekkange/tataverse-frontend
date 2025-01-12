@@ -54,12 +54,12 @@ const Landing = ({ username }) => {
     if (file && fileName) {
       setIsUploading(true);
       setShowConfirmation(true);
-
+  
       try {
         const formData = new FormData();
         formData.append("image", file);
         formData.append("username", fileName);
-
+  
         const uploadResponse = await axios.post(
           "https://api.runtimetheory.com/api/upload",
           formData,
@@ -69,7 +69,7 @@ const Landing = ({ username }) => {
             },
           }
         );
-
+  
         setTimeout(() => {
           alert("File submitted successfully!");
           setShowConfirmation(false);
@@ -77,9 +77,18 @@ const Landing = ({ username }) => {
           setFileName("");
           setIsUploading(false);
         }, 2000);
-
+  
       } catch (error) {
         console.error("Error in confirmation API:", error);
+  
+        // Check if the error is due to bucket limit being exceeded
+        if (error.response && error.response.status === 400) {
+          const errorMessage = error.response.data.error || 'Bucket limit exceeded'; // Adjust if needed based on the actual API response
+          alert(errorMessage);
+        } else {
+          alert("An error occurred while uploading the file.");
+        }
+  
         setIsUploading(false);
       }
     } else {
