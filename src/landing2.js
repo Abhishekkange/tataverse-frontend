@@ -11,7 +11,7 @@ const Landing = ({ username }) => {
   const [isDragActive, setIsDragActive] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const allowedExtensions = ['jpg', 'png', 'pdf', 'glb','mp4'];
+  const allowedExtensions = [ 'png', 'pdf', 'glb','mp4'];
   const maxFileSize = 200 * 1024 * 1024;
 
   // Ref to the file input
