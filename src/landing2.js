@@ -12,7 +12,7 @@ const Landing = ({ username }) => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const allowedExtensions = ['jpg', 'png', 'pdf', 'docx'];
-  const maxFileSize = 200 * 1024 * 1024;
+  const maxFileSize = 10 * 1024 * 1024;
 
   // Ref to the file input
   const fileInputRef = useRef(null);
