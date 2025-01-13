@@ -108,14 +108,18 @@ const Landing = ({ username }) => {
         }else{
 
           alert("Max file size of 200MB is allowed")
-          location.reload();
+          setFile(null);
+              setFileName("");
+          setIsUploading(false);
         }
      
       } else {
         console.log(`The file "${fileName}" is not allowed.`);
        
         alert("Please input a valid file format")
-        location.reload();
+        setFile(null);
+              setFileName("");
+        setIsUploading(false);
       }
   
       
