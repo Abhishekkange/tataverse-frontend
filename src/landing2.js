@@ -11,6 +11,8 @@ const Landing = ({ username }) => {
   const [isDragActive, setIsDragActive] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const allowedExtensions = ['jpg', 'png', 'pdf', 'docx'];
+  const maxFileSize = 200 * 1024 * 1024;
 
   // Ref to the file input
   const fileInputRef = useRef(null);
@@ -54,43 +56,65 @@ const Landing = ({ username }) => {
     if (file && fileName) {
       setIsUploading(true);
       setShowConfirmation(true);
-  
-      try {
-        const formData = new FormData();
-        formData.append("image", file);
-        formData.append("username", fileName);
-  
-        const uploadResponse = await axios.post(
-          "https://api.runtimetheory.com/api/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
+      const fileExtension = fileName.split('.').pop().toLowerCase();
+
+      if (allowedExtensions.includes(fileExtension)) {
+        console.log(`The file "${fileName}" is allowed.`);
+        // Perform the "if" logic here
+        const fileSize = file.size;
+        if (fileSize < maxFileSize) {
+
+          try {
+            const formData = new FormData();
+            formData.append("image", file);
+            formData.append("username", fileName);
+      
+            const uploadResponse = await axios.post(
+              "https://api.runtimetheory.com/api/upload",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            );
+      
+            setTimeout(() => {
+              alert("File submitted successfully!");
+              setShowConfirmation(false);
+              setFile(null);
+              setFileName("");
+              setIsUploading(false);
+            }, 2000);
+      
+          } catch (error) {
+            console.error("Error in confirmation API:", error);
+      
+            // Check if the error is due to bucket limit being exceeded
+            if (error.response && error.response.status === 400) {
+              const errorMessage = error.response.data.error || 'Bucket limit exceeded'; // Adjust if needed based on the actual API response
+              alert(errorMessage);
+            } else {
+              alert("An error occurred while uploading the file.");
+            }
+      
+            setIsUploading(false);
           }
-        );
-  
-        setTimeout(() => {
-          alert("File submitted successfully!");
-          setShowConfirmation(false);
-          setFile(null);
-          setFileName("");
-          setIsUploading(false);
-        }, 2000);
-  
-      } catch (error) {
-        console.error("Error in confirmation API:", error);
-  
-        // Check if the error is due to bucket limit being exceeded
-        if (error.response && error.response.status === 400) {
-          const errorMessage = error.response.data.error || 'Bucket limit exceeded'; // Adjust if needed based on the actual API response
-          alert(errorMessage);
-        } else {
-          alert("An error occurred while uploading the file.");
+          
+
+
+        }else{
+
+          alert("Max file size of 200MB is allowed")
         }
-  
-        setIsUploading(false);
+     
+      } else {
+        console.log(`The file "${fileName}" is not allowed.`);
+       
+        alert("Please input a valid file format")
       }
+  
+      
     } else {
       alert("Please select a file and enter a file name.");
     }
