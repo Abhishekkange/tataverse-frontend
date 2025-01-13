@@ -62,8 +62,10 @@ const Landing = ({ username }) => {
         console.log(`The file "${fileName}" is allowed.`);
         // Perform the "if" logic here
         const fileSize = file.size;
+        console.log("the file size is "+fileSize);
         if (fileSize < maxFileSize) {
 
+          console.log("uploading the file")
           try {
             const formData = new FormData();
             formData.append("image", file);
