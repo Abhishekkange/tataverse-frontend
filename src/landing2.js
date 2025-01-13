@@ -95,7 +95,7 @@ const Landing = ({ username }) => {
             // Check if the error is due to bucket limit being exceeded
             if (error.response && error.response.status === 400) {
               const errorMessage = error.response.data.error || 'Bucket limit exceeded'; // Adjust if needed based on the actual API response
-              alert(errorMessage);
+              alert("Bucket Full size exceeds 1 GB");
             } else {
               alert("An error occurred while uploading the file.");
             }
