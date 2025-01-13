@@ -96,8 +96,10 @@ const Landing = ({ username }) => {
             if (error.response && error.response.status === 400) {
               const errorMessage = error.response.data.error || 'Bucket limit exceeded'; // Adjust if needed based on the actual API response
               alert("Bucket Full size exceeds 1 GB");
+              window.location.reload(); 
             } else {
               alert("An error occurred while uploading the file.");
+              window.location.reload(); 
             }
       
             setIsUploading(false);
@@ -111,6 +113,7 @@ const Landing = ({ username }) => {
           setFile(null);
               setFileName("");
           setIsUploading(false);
+          window.location.reload(); 
         }
      
       } else {
@@ -120,11 +123,13 @@ const Landing = ({ username }) => {
         setFile(null);
               setFileName("");
         setIsUploading(false);
+        window.location.reload(); 
       }
   
       
     } else {
       alert("Please select a file and enter a file name.");
+      window.location.reload(); 
     }
   };
 
