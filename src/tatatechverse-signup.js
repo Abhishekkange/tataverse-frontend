@@ -229,7 +229,7 @@ const SignUp = () => {
       if (userResponse.status === 201) {
        
         // For now, just log success
-        navigate("/signup");
+        navigate("/");
       } else {
         console.error('Error during sign-up:', userResponse.data);
         setError("Failed to sign up. Please try again.");
