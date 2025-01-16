@@ -296,7 +296,7 @@ const SignUp = () => {
       );
 
       const accessToken = tokenResponse.data.access_token;
-      console.log("Access Token:", accessToken);
+      // console.log("Access Token:", accessToken);
       if (!accessToken) {
         setError("Failed to get access token.");
         return;
