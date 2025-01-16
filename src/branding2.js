@@ -28,6 +28,44 @@ const Branding = () => {
     navigate(`/landing?id=${id}&userName=${userName}`);
   };
 
+  const styles = {
+    mainContainer: {
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "20px",
+      gap: "20px",
+      '@media (max-width: 768px)': {
+        flexDirection: "column",
+        padding: "10px",
+      }
+    },
+    buttonContainer: {
+      display: "flex",
+      gap: "10px",
+      marginTop: "20px",
+      width: "100%",
+      '@media (max-width: 768px)': {
+        flexDirection: "column",
+        gap: "15px",
+      }
+    },
+    welcomeText: {
+      fontSize: "59px",
+      fontWeight: "900",
+      '@media (max-width: 768px)': {
+        fontSize: "36px",
+      }
+    },
+    heroImage: {
+      width: "55vw",
+      height: "85vh",
+      '@media (max-width: 768px)': {
+        width: "100%",
+        height: "40vh",
+      }
+    }
+  };
+
   return (
     <div>
       <header
@@ -102,12 +140,7 @@ const Branding = () => {
       </header>
 
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "20px",
-          gap: "20px",
-        }}
+        style={styles.mainContainer}
       >
         {/* Left Section */}
         <div
@@ -119,12 +152,12 @@ const Branding = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "start"
-
-          }}>
+          }}
+        >
           <p style={{ fontSize: "18px", fontWeight: "bold", color: "#75E0E4", margin: "0px" }}>Hi, {userName}</p>
-          <p style={{ fontSize: "59px", fontWeight: "900", color: "#FFFFFF", marginBottom: "20px", marginTop: "0px" }}>WELCOME TO TATA TECHVERSE</p>
+          <p style={styles.welcomeText}>WELCOME TO TATA TECHVERSE</p>
           <p style={{ fontSize: "20px", fontWeight: "light", color: "#FFFFFF", marginBottom: "0px" }}>How would you like to proceed?</p>
-          <div style={{ display: "flex", gap: "10px", marginTop: "20px", width: "100%" }}>
+          <div style={styles.buttonContainer}>
             <button
               onClick={handleEnterClick} // Add click event handler for Enter button
               style={{
@@ -173,13 +206,7 @@ const Branding = () => {
           <img
             src="/image.png"
             alt="Hero"
-            style={{
-              width: "55vw",
-              height: "85vh",
-              borderRadius: "0px",
-              objectFit: "cover",
-              objectPosition: "right",
-            }}
+            style={styles.heroImage}
           />
         </div>
       </div>

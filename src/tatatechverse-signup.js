@@ -63,6 +63,10 @@ const SignUp = () => {
       justifyContent: "space-between",
       padding: "20px",
       gap: "20px",
+      '@media (max-width: 768px)': {
+        flexDirection: "column-reverse",
+        padding: "10px",
+      }
     },
     section: {
       flex: 1,
@@ -96,6 +100,10 @@ const SignUp = () => {
     inputRow: {
       display: "flex",
       gap: "20px",
+      '@media (max-width: 768px)': {
+        flexDirection: "column",
+        gap: "10px",
+      }
     },
     input: {
       width: "48%",
@@ -105,6 +113,9 @@ const SignUp = () => {
       color: "#FFFFFF",
       border: "1px solid #FFFFFF",
       fontSize: "16px",
+      '@media (max-width: 768px)': {
+        width: "100%",
+      }
     },
     fullWidthInput: {
       width: "95%",
@@ -115,6 +126,9 @@ const SignUp = () => {
       color: "#FFFFFF",
       border: "1px solid #FFFFFF",
       fontSize: "16px",
+      '@media (max-width: 768px)': {
+        width: "100%",
+      }
     },
     button: {
       display: "flex",

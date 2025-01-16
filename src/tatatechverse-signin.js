@@ -53,6 +53,10 @@ const Signin = () => {
       justifyContent: "space-between",
       padding: "20px",
       gap: "20px",
+      '@media (max-width: 768px)': {
+        flexDirection: "column-reverse",
+        padding: "10px",
+      }
     },
     section: {
       flex: 1,
@@ -61,6 +65,9 @@ const Signin = () => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      '@media (max-width: 768px)': {
+        padding: "10px",
+      }
     },
     sectionImage: {
       width: "68%",
@@ -68,6 +75,10 @@ const Signin = () => {
       minHeight: "500px",
       borderRadius: "8px",
       preserveAspectRatio: "xMidYMid meet",
+      '@media (max-width: 768px)': {
+        width: "100%",
+        minHeight: "300px",
+      }
     },
     formContainer: {
       display: "flex",
@@ -82,6 +93,9 @@ const Signin = () => {
       fontSize: "50px",
       color: "#75E0E4",
       marginBottom: "0px",
+      '@media (max-width: 768px)': {
+        fontSize: "36px",
+      }
     },
     input: {
       width: "50%",
@@ -91,6 +105,9 @@ const Signin = () => {
       color: "#FFFFFF",
       border: "1px solid #FFFFFF",
       fontSize: "16px",
+      '@media (max-width: 768px)': {
+        width: "80%",
+      }
     },
     button: {
       display: "flex",
@@ -104,6 +121,9 @@ const Signin = () => {
       border: "none",
       fontSize: "16px",
       cursor: "pointer",
+      '@media (max-width: 768px)': {
+        width: "85%",
+      }
     },
     link: {
       color: "#FFFFFF",

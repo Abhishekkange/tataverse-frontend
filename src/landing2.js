@@ -142,8 +142,11 @@ const Landing = ({ username }) => {
     container: {
       display: "flex",
       justifyContent: "space-between",
-      alignItems: "center",
       padding: "20px",
+      '@media (max-width: 768px)': {
+        flexDirection: "column-reverse",
+        padding: "10px",
+      }
     },
     leftBox: {
       flex: 1,
@@ -161,14 +164,17 @@ const Landing = ({ username }) => {
       alignItems: "start",
       flexDirection: "column",
       gap: "10px",
-
+      '@media (max-width: 768px)': {
+        padding: "0",
+        marginTop: "20px",
+      }
     },
     dropzone: {
-      width: "full",
+      width: "90%",
       display: "flex",
       border: "2px dashed #fff",
       borderRadius: "15px",
-      padding: "20px 100px",
+      padding: "20px 20px",
       textAlign: "center",
       cursor: "pointer",
       transition: "all 0.3s ease",
@@ -178,6 +184,11 @@ const Landing = ({ username }) => {
       justifyContent: "center",
       marginBottom: "10px",
       marginTop: "0px",
+      '@media (max-width: 768px)': {
+        padding: "20px",
+        height: "auto",
+        minHeight: "100px",
+      }
     },
     dropzoneActive: {
       borderColor: "#4caf50", // Green color when drag is active
@@ -210,6 +221,9 @@ const Landing = ({ username }) => {
       fontWeight: "bold",
       alignSelf: "center",
       width: "50%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
     image: {
       width: "55vw",
@@ -217,7 +231,14 @@ const Landing = ({ username }) => {
       borderRadius: "0px",
       objectFit: "cover",
       objectPosition: "left",
+      marginRight: "50px",
       // boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      '@media (max-width: 768px)': {
+        width: "100%",
+        height: "40vh",
+        marginRight: "0",
+        marginBottom: "20px",
+      }
     },
     loadingContainer: {
       position: 'relative',
