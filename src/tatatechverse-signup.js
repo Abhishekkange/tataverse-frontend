@@ -200,7 +200,9 @@ const SignUp = () => {
   
     // Return userId from the first match (you may need to adjust this based on the response)
     if (users && users.length > 0) {
+      console.log("User Id:", users[0].id);
       return users[0].id; // return the userId
+      
     } else {
       throw new Error('User not found');
     }
@@ -253,7 +255,7 @@ const SignUp = () => {
       );
   
       const accessToken = tokenResponse.data.access_token;
-      console.log("Access Token:", accessToken);
+      console.log("Access Token for role mapping:", accessToken);
       
       if (!accessToken) {
         throw new Error("Failed to get access token.");
