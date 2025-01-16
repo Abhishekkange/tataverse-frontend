@@ -166,6 +166,91 @@ const SignUp = () => {
     return firstName && lastName && username && email && password;
   };
 
+  //fetching the userId by username
+  async function getUserIdByUsername(bearerToken, realm, username) {
+    const url = `https://lemur-17.cloud-iam.com/auth/admin/realms/${realm}/users?username=${username}`;
+  
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${bearerToken}`,
+        'Content-Type': 'application/json',
+      }
+    });
+  
+    if (!response.ok) {
+      throw new Error('Error fetching user information');
+    }
+  
+    const users = await response.json();
+  
+    // Return userId from the first match (you may need to adjust this based on the response)
+    if (users && users.length > 0) {
+      return users[0].id; // return the userId
+    } else {
+      throw new Error('User not found');
+    }
+  }
+
+
+  //Function to assign the role to new created user
+  async function assignRoleToUser(bearerToken, realm, userId, roleName) {
+    const url = `https://lemur-17.cloud-iam.com/auth/admin/realms/${realm}/users/${userId}/role-mappings/realm`;
+  
+    const rolePayload = [
+      {
+        "name": roleName
+      }
+    ];
+  
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${bearerToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(rolePayload),
+    });
+  
+    if (!response.ok) {
+      throw new Error('Error assigning role to user');
+    }
+  
+    const data = await response.json();
+    return data;
+  }
+
+  //Function to get the Access Token
+  const fetchAccessToken = async (grantType, clientId, clientSecret, realmName) => {
+    try {
+      // API Request to get the access token
+      const tokenResponse = await axios.post(
+        `https://lemur-17.cloud-iam.com/auth/realms/${realmName}/protocol/openid-connect/token`,
+        new URLSearchParams({
+          grant_type: grantType,
+          client_id: clientId,
+          client_secret: clientSecret
+        }),
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        }
+      );
+  
+      const accessToken = tokenResponse.data.access_token;
+      console.log("Access Token:", accessToken);
+      
+      if (!accessToken) {
+        throw new Error("Failed to get access token.");
+      }
+  
+      return accessToken; // Return the access token for further use
+    } catch (error) {
+      console.error("Error fetching access token:", error.message);
+      throw error; // Propagate error for handling in the calling function
+    }
+  };
   
 
   // Handle sign-up button click
@@ -227,6 +312,16 @@ const SignUp = () => {
       );
 
       if (userResponse.status === 201) {
+
+        //assign the role to new user
+        //1. Get the Access Token
+        const accessToken = await fetchAccessToken('client_credentials', 'abhishek', 'dSVuLepCsnskzRtzmmXE99PBYkNgapHP', 'tatatechnologies');
+        //2. Get the userId by username
+        const userId = await getUserIdByUsername(accessToken, 'tatatechnologies', username);
+        //3. Create a New Role 
+        const roleName = 'user';
+        const roleResponse = await assignRoleToUser(accessToken, 'tatatechnologies', userId, roleName);
+        console.log("Role Assigned:", roleResponse);
        
         // For now, just log success
         navigate("/");
