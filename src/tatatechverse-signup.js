@@ -19,6 +19,7 @@ const SignUp = () => {
   const CLIENT_ID = process.env.CLIENT_ID;
   const REALM_NAME = process.env.REALM_NAME;
   const SERVER_URL = process.env.SERVER_URL;
+  console.log(SERVER_URL);
 
   const navigate = useNavigate();
 
