@@ -11,10 +11,10 @@ const Signin = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const SERVER_URL = process.env.SERVER_URL;
-  const CLIENT_ID = process.env.CLIENT_ID;
-  const CLIENT_SECRET = process.env.CLIENT_SECRET;
-  const REALM_NAME  = process.env.REALM_NAME;
+  const SERVER_URL = "lemur-17.cloud-iam.com"
+  const CLIENT_ID = "abhishek"
+  const CLIENT_SECRET = "dSVuLepCsnskzRtzmmXE99PBYkNgapHP"
+  const REALM_NAME  = "tatatechnologies"
 
 
 

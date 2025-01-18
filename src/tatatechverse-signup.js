@@ -15,11 +15,11 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // Error message state
 
-  const CLIENT_SECRET = process.env.CLIENT_SECRET;
-  const CLIENT_ID = process.env.CLIENT_ID;
-  const REALM_NAME = process.env.REALM_NAME;
-  const SERVER_URL = process.env.SERVER_URL;
-  console.log(SERVER_URL);
+  const SERVER_URL = "lemur-17.cloud-iam.com"
+  const CLIENT_ID = "abhishek"
+  const CLIENT_SECRET = "dSVuLepCsnskzRtzmmXE99PBYkNgapHP"
+  const REALM_NAME  = "tatatechnologies"
+ 
 
   const navigate = useNavigate();
 
