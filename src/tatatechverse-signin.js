@@ -11,6 +11,13 @@ const Signin = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const SERVER_URL = process.env.SERVER_URL;
+  const CLIENT_ID = process.env.CLIENT_ID;
+  const CLIENT_SECRET = process.env.CLIENT_SECRET;
+  const REALM_NAME  = process.env.REALM_NAME;
+
+
+
   useEffect(() => {
     document.body.style.backgroundColor = "#2F0B33";
     document.body.style.margin = "0";
@@ -53,10 +60,6 @@ const Signin = () => {
       justifyContent: "space-between",
       padding: "20px",
       gap: "20px",
-      '@media (max-width: 768px)': {
-        flexDirection: "column-reverse",
-        padding: "10px",
-      }
     },
     section: {
       flex: 1,
@@ -65,9 +68,6 @@ const Signin = () => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      '@media (max-width: 768px)': {
-        padding: "10px",
-      }
     },
     sectionImage: {
       width: "68%",
@@ -75,10 +75,6 @@ const Signin = () => {
       minHeight: "500px",
       borderRadius: "8px",
       preserveAspectRatio: "xMidYMid meet",
-      '@media (max-width: 768px)': {
-        width: "100%",
-        minHeight: "300px",
-      }
     },
     formContainer: {
       display: "flex",
@@ -93,9 +89,6 @@ const Signin = () => {
       fontSize: "50px",
       color: "#75E0E4",
       marginBottom: "0px",
-      '@media (max-width: 768px)': {
-        fontSize: "36px",
-      }
     },
     input: {
       width: "50%",
@@ -105,9 +98,6 @@ const Signin = () => {
       color: "#FFFFFF",
       border: "1px solid #FFFFFF",
       fontSize: "16px",
-      '@media (max-width: 768px)': {
-        width: "80%",
-      }
     },
     button: {
       display: "flex",
@@ -121,9 +111,6 @@ const Signin = () => {
       border: "none",
       fontSize: "16px",
       cursor: "pointer",
-      '@media (max-width: 768px)': {
-        width: "85%",
-      }
     },
     link: {
       color: "#FFFFFF",
@@ -171,7 +158,7 @@ const Signin = () => {
       };
 
       const response = await axios.post(
-        "https://lemur-17.cloud-iam.com/auth/realms/tatatechnologies/protocol/openid-connect/token",
+        `https://${SERVER_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
         new URLSearchParams(requestData),
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
@@ -196,11 +183,11 @@ const Signin = () => {
 
       // Fetch the second access token for admin operations
       const tokenResponse = await axios.post(
-        "https://lemur-17.cloud-iam.com/auth/realms/tatatechnologies/protocol/openid-connect/token",
+        `https://${SERVER_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
         new URLSearchParams({
           grant_type: "client_credentials",
-          client_id: "abhishek",
-          client_secret: "dSVuLepCsnskzRtzmmXE99PBYkNgapHP",
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
         }),
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
@@ -215,7 +202,7 @@ const Signin = () => {
 
       // Fetch user details using email
       const userResponse = await axios.get(
-        `https://lemur-17.cloud-iam.com/auth/admin/realms/tatatechnologies/users?email=${userEmail}`,
+        `https://${SERVER_URL}/auth/admin/realms/${REALM_NAME}/users?email=${userEmail}`,
         { headers: { Authorization: `Bearer ${accessToken2}` } }
       );
 

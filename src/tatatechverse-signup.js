@@ -15,6 +15,11 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // Error message state
 
+  const CLIENT_SECRET = process.env.CLIENT_SECRET;
+  const CLIENT_ID = process.env.CLIENT_ID;
+  const REALM_NAME = process.env.REALM_NAME;
+  const SERVER_URL = process.env.SERVER_URL;
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -182,7 +187,7 @@ const SignUp = () => {
 
   //fetching the userId by username
   async function getUserIdByUsername(bearerToken, realm, username) {
-    const url = `https://lemur-17.cloud-iam.com/auth/admin/realms/${realm}/users?username=${username}`;
+    const url = `https://${SERVER_URL}/auth/admin/realms/${realm}/users?username=${username}`;
   
     const response = await fetch(url, {
       method: 'GET',
@@ -211,7 +216,7 @@ const SignUp = () => {
 
   //Function to assign the role to new created user
   async function assignRoleToUser(bearerToken, realm, userId, roleName) {
-    const url = `https://lemur-17.cloud-iam.com/auth/admin/realms/${realm}/users/${userId}/role-mappings/realm`;
+    const url = `https://${SERVER_URL}/auth/admin/realms/${realm}/users/${userId}/role-mappings/realm`;
   
     const rolePayload = [
       {
@@ -241,7 +246,7 @@ const SignUp = () => {
     try {
       // API Request to get the access token
       const tokenResponse = await axios.post(
-        `https://lemur-17.cloud-iam.com/auth/realms/${realmName}/protocol/openid-connect/token`,
+        `https://${SERVER_URL}/auth/realms/${realmName}/protocol/openid-connect/token`,
         new URLSearchParams({
           grant_type: grantType,
           client_id: clientId,
@@ -282,11 +287,11 @@ const SignUp = () => {
     try {
       // First API Request to get the access token
       const tokenResponse = await axios.post(
-        "https://lemur-17.cloud-iam.com/auth/realms/tatatechnologies/protocol/openid-connect/token",
+      `https://${SERVER_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
         new URLSearchParams({
           grant_type: "client_credentials",
-          client_id: "abhishek",
-          client_secret: "dSVuLepCsnskzRtzmmXE99PBYkNgapHP"
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET
         }),
         {
           headers: {
@@ -304,7 +309,7 @@ const SignUp = () => {
 
       // Second API Request to create the user
       const userResponse = await axios.post(
-        "https://lemur-17.cloud-iam.com/auth/admin/realms/tatatechnologies/users",
+        `https://${SERVER_URL}/auth/admin/realms/${REALM_NAME}/users`,
         {
           username: username,
           email: email,
@@ -331,12 +336,12 @@ const SignUp = () => {
 
         //assign the role to new user
         //1. Get the Access Token
-        const accessToken = await fetchAccessToken('client_credentials', 'abhishek', 'dSVuLepCsnskzRtzmmXE99PBYkNgapHP', 'tatatechnologies');
+        const accessToken = await fetchAccessToken('client_credentials', CLIENT_ID, CLIENT_SECRET, REALM_NAME);
         //2. Get the userId by username
-        const userId = await getUserIdByUsername(accessToken, 'tatatechnologies', username);
+        const userId = await getUserIdByUsername(accessToken, REALM_NAME, username);
         //3. Create a New Role 
         const roleName = 'user';
-        const roleResponse = await assignRoleToUser(accessToken, 'tatatechnologies', userId, roleName);
+        const roleResponse = await assignRoleToUser(accessToken, REALM_NAME, userId, roleName);
         console.log("Role Assigned:", roleResponse);
        
         // For now, just log success
