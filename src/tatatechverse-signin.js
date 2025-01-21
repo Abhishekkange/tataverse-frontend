@@ -14,7 +14,7 @@ const Signin = () => {
   const SERVER_URL = "lemur-17.cloud-iam.com"
   const CLIENT_ID = "abhishek"
   const CLIENT_SECRET = "dSVuLepCsnskzRtzmmXE99PBYkNgapHP"
-  const REALM_NAME  = "tatatechnologies"
+  const REALM_NAME = "tatatechnologies"
 
 
 
@@ -140,18 +140,15 @@ const Signin = () => {
     }
   };
 
-  const handleLogin = async () => {
-    setError("");
-    if (!email || !password) {
-      setError("Please enter both email and password.");
-      return;
-    }
+
+  //get password token function
+  const getPasswordToken = async (server_url, username, client_id, client_secret, username, password) => {
 
     try {
       // Fetch the initial access token
       const requestData = {
-        client_id: "abhishek",
-        client_secret: "dSVuLepCsnskzRtzmmXE99PBYkNgapHP",
+        client_id: client_id,
+        client_secret: client_secret,
         grant_type: "password",
         username: email,
         password: password,
@@ -166,10 +163,71 @@ const Signin = () => {
       const { access_token } = response.data;
       if (!access_token) {
         setError("Failed to obtain access token.");
-        return;
+        return access_token;
       }
 
-      let decodedToken;
+    } catch (error) {
+      console.error("Login failed:", error);
+      const errorMessage =
+        error.response?.data?.error_description || "An error occurred while logging in.";
+      setError(errorMessage);
+    }
+
+  }
+
+  //get client token function
+  const getClientToken = async (server_url, client_id, client_secret) => {
+
+    const tokenResponse = await axios.post(
+      `https://${server_url}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
+      new URLSearchParams({
+        grant_type: "client_credentials",
+        client_id: client_id,
+        client_secret: client_secret,
+      }),
+      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+    );
+
+    const accessToken2 = tokenResponse.data.access_token;
+    if (!accessToken2) {
+      setError("Failed to get admin access token.");
+      return;
+    }
+    else {
+      return accessToken2;
+    }
+
+
+
+
+
+  }
+
+  const fetchUserDetails = async (server_url, realm_name,accessToken2) => {
+
+    const userResponse = await axios.get(
+      `https://${server_url}/auth/admin/realms/${realm_name}/users?email=${userEmail}`,
+      { headers: { Authorization: `Bearer ${accessToken2}` } }
+    );
+
+    const userData = userResponse.data[0];
+    return userData;
+
+   
+  }
+
+  const handleLogin = async () => {
+    setError("");
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+
+    //Login using username
+    //1. Get Password token
+    const token = await getPasswordToken(SERVER_URL, email, CLIENT_ID, CLIENT_SECRET, email, password);
+    //2. Decode token
+    let decodedToken;
       try {
         decodedToken = jwtDecode(access_token);
       } catch (err) {
@@ -179,75 +237,140 @@ const Signin = () => {
 
       const userEmail = decodedToken.email;
 
-      console.log("Extracted Email:", userEmail);
 
-      // Fetch the second access token for admin operations
-      const tokenResponse = await axios.post(
-        `https://${SERVER_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
-        new URLSearchParams({
-          grant_type: "client_credentials",
-          client_id: CLIENT_ID,
-          client_secret: CLIENT_SECRET,
-        }),
-        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-      );
-
-      const accessToken2 = tokenResponse.data.access_token;
-      console.log(accessToken2)
-      if (!accessToken2) {
-        setError("Failed to get admin access token.");
-        return;
-      }
-      //done
-
-      // Fetch user details using email
-      const userResponse = await axios.get(
-        `https://${SERVER_URL}/auth/admin/realms/${REALM_NAME}/users?email=${userEmail}`,
-        { headers: { Authorization: `Bearer ${accessToken2}` } }
-      );
-
-      const userData = userResponse.data[0];
-      const isVerified = userData.emailVerified;
-      
-      if (userData) {
-
-        if(isVerified)
-          {
-            const { username, id } = userData;
-        console.log("Username:", username);
-        console.log("User ID:", id);
-
-        const form = {
-          id: id,
-          username: username,
-          email: userEmail,
-        };
-
-         //remove this one
-         const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        navigate("/branding", { state: { id, userName: username } });
-
-          }
-          else{
-
-            setError("Email not verified. Please verify your email before logging .")
-          }
-      } else {
-        setError("User not found.");
-      }
-      console.log("userData", userData)
-      console.log("api called")
-    } catch (error) {
-      console.error("Login failed:", error);
-      const errorMessage =
-        error.response?.data?.error_description || "An error occurred while logging in.";
-      setError(errorMessage);
+    //3. Get client token
+    const clientToken = await getClientToken(SERVER_URL, CLIENT_ID, CLIENT_SECRET);
+    //4. Get user details
+    const userData = await fetchUserDetails(SERVER_URL, REALM_NAME, clientToken);
+    //5. Check if user is verified
+    const isVerified = userData.emailVerified;
+    if(!isVerified){
+      setError("Email not verified. Please verify your email before logging .")
     }
+    else{
+
+      const { username, id } = userData;
+      console.log("Username:", username);
+      console.log("User ID:", id);
+
+      const form = {
+        id: id,
+        username: username,
+        email: userEmail,
+      };
+
+      //remove this one
+      const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      navigate("/branding", { state: { id, userName: username } });
+    }
+
+
+    //OLD IMPLEMENTATION
+    // try {
+    //   // Fetch the initial access token
+    //   const requestData = {
+    //     client_id: "abhishek",
+    //     client_secret: "dSVuLepCsnskzRtzmmXE99PBYkNgapHP",
+    //     grant_type: "password",
+    //     username: email,
+    //     password: password,
+    //   };
+
+    //   const response = await axios.post(
+    //     `https://${SERVER_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
+    //     new URLSearchParams(requestData),
+    //     { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+    //   );
+
+    //   const { access_token } = response.data;
+    //   if (!access_token) {
+    //     setError("Failed to obtain access token.");
+    //     return;
+    //   }
+
+    //   let decodedToken;
+    //   try {
+    //     decodedToken = jwtDecode(access_token);
+    //   } catch (err) {
+    //     setError("Invalid token. Please try again.");
+    //     return;
+    //   }
+
+    //   const userEmail = decodedToken.email;
+
+    //   console.log("Extracted Email:", userEmail);
+
+    //   // Fetch the second access token for admin operations
+    //   const tokenResponse = await axios.post(
+    //     `https://${SERVER_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
+    //     new URLSearchParams({
+    //       grant_type: "client_credentials",
+    //       client_id: CLIENT_ID,
+    //       client_secret: CLIENT_SECRET,
+    //     }),
+    //     { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+    //   );
+
+    //   const accessToken2 = tokenResponse.data.access_token;
+    //   console.log(accessToken2)
+    //   if (!accessToken2) {
+    //     setError("Failed to get admin access token.");
+    //     return;
+    //   }
+    //   //done
+
+    //   // Fetch user details using email
+    //   const userResponse = await axios.get(
+    //     `https://${SERVER_URL}/auth/admin/realms/${REALM_NAME}/users?email=${userEmail}`,
+    //     { headers: { Authorization: `Bearer ${accessToken2}` } }
+    //   );
+
+    //   const userData = userResponse.data[0];
+    //   const isVerified = userData.emailVerified;
+
+    //   if (userData) {
+
+    //     if (isVerified) {
+    //       const { username, id } = userData;
+    //       console.log("Username:", username);
+    //       console.log("User ID:", id);
+
+    //       const form = {
+    //         id: id,
+    //         username: username,
+    //         email: userEmail,
+    //       };
+
+    //       //remove this one
+    //       const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //       });
+
+    //       navigate("/branding", { state: { id, userName: username } });
+
+    //     }
+    //     else {
+
+    //       setError("Email not verified. Please verify your email before logging .")
+    //     }
+    //   } else {
+    //     setError("User not found.");
+    //   }
+    //   console.log("userData", userData)
+    //   console.log("api called")
+    // } catch (error) {
+    //   console.error("Login failed:", error);
+    //   const errorMessage =
+    //     error.response?.data?.error_description || "An error occurred while logging in.";
+    //   setError(errorMessage);
+    // }
   };
 
   // Google Sign-In Handler
@@ -415,21 +538,21 @@ const Signin = () => {
             </div>
 
             {/* <button style={styles.button}> */}
-              <GoogleOAuthProvider clientId="535912570456-3c93tuccirv1ovmfsc628teghs9g8amc.apps.googleusercontent.com">
-                <GoogleLogin
-                  onSuccess={handleGoogleLogin}
-                  onError={(error) => console.log("Google Login Error:", error)}
+            <GoogleOAuthProvider clientId="535912570456-3c93tuccirv1ovmfsc628teghs9g8amc.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={(error) => console.log("Google Login Error:", error)}
 
-                >
-                  Signin with Google
-                </GoogleLogin>
-              </GoogleOAuthProvider>
+              >
+                Signin with Google
+              </GoogleLogin>
+            </GoogleOAuthProvider>
             {/* </button> */}
           </div>
 
           <Link to="/forgot-password" className="forgot-password">
-                    Forgot Password?
-                </Link>
+            Forgot Password?
+          </Link>
 
 
 
@@ -439,5 +562,6 @@ const Signin = () => {
   );
 
 };
+
 
 export default Signin;
