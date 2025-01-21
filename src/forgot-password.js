@@ -107,7 +107,6 @@ const ForgotPassword = () => {
           );
       
           const accessToken = tokenResponse.data.access_token;
-          console.log("Access Token for role mapping:", accessToken);
           
           if (!accessToken) {
             throw new Error("Failed to get access token.");
@@ -119,6 +118,30 @@ const ForgotPassword = () => {
           throw error; // Propagate error for handling in the calling function
         }
       };
+
+const getUserDetailsByEmail = async (email,realm_name,server_url,token) => {
+    try {
+        const url = `https://${server_url}/auth/admin/realms/${realm_name}/users?email=${encodeURIComponent(email)}`;
+
+        const response = await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.data && response.data.length > 0) {
+            console.log('User details:', response.data[0]);  // Assuming it returns an array of users, take the first one
+            return response.data[0];  // Return the user details
+        } else {
+            console.log('No user found with the provided email.');
+            return null;
+        }
+    } catch (err) {
+        console.error('Error fetching user details:', err);
+        return null;
+    }
+};
       
 
     const sendResetPasswordEmail = async (realmName, userId,token,SERVER_URL) => {
@@ -156,8 +179,12 @@ const ForgotPassword = () => {
         try {
 
             //get access token
-            const token = fetchAccessToken(GRANT_TYPE,CLIENT_ID,CLIENT_SECRET,REALM_NAME);
+            const token = await fetchAccessToken(GRANT_TYPE,CLIENT_ID,CLIENT_SECRET,REALM_NAME);
             console.log("Token:",token);
+            const userId = await getUserDetailsByEmail(email,REALM_NAME,SERVER_URL,token);
+            console.log("User ID:",userId);
+            const response = await sendResetPasswordEmail(REALM_NAME,email,token,SERVER_URL);
+            
            
 
 
