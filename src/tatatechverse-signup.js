@@ -186,6 +186,30 @@ const SignUp = () => {
     return firstName && lastName && username && email && password;
   };
 
+  const getUserDetailsByEmail = async (email,realm_name,server_url,token) => {
+    try {
+        const url = `https://${server_url}/auth/admin/realms/${realm_name}/users?email=${encodeURIComponent(email)}`;
+
+        const response = await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.data && response.data.length > 0) {
+            console.log('User details:', response.data[0]);  // Assuming it returns an array of users, take the first one
+            return response.data[0];  // Return the user details
+        } else {
+            console.log('No user found with the provided email.');
+            return null;
+        }
+    } catch (err) {
+        console.error('Error fetching user details:', err);
+        return null;
+    }
+};
+
   //fetching the userId by username
   async function getUserIdByUsername(bearerToken, realm, username) {
     const url = `https://${SERVER_URL}/auth/admin/realms/${realm}/users?username=${username}`;
@@ -273,6 +297,45 @@ const SignUp = () => {
       throw error; // Propagate error for handling in the calling function
     }
   };
+
+  const sendVerificationEmail = async (userId, realmName, serverUrl, token) => {
+    try {
+        // Construct the endpoint URL
+        const url = `https://${serverUrl}/auth/admin/realms/${realmName}/users/${userId}/send-verify-email`;
+
+        console.log("API Endpoint:", url);
+
+        // Make the API request
+        const response = await axios.put(
+            url,
+            {}, // No body required
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        // Check the response status
+        if (response.status === 204) {
+            console.log(`Verification email sent successfully to user with ID: ${userId}`);
+        } else {
+            console.log('Unexpected response:', response.data);
+        }
+    } catch (error) {
+        // Handle errors
+        if (error.response) {
+            console.error('API Error:', error.response.data);
+        } else if (error.request) {
+            console.error('No response received:', error.request);
+        } else {
+            console.error('Error setting up the request:', error.message);
+        }
+    }
+};
+
+
   
 
   // Handle sign-up button click
@@ -338,12 +401,17 @@ const SignUp = () => {
         //assign the role to new user
         //1. Get the Access Token
         const accessToken = await fetchAccessToken('client_credentials', CLIENT_ID, CLIENT_SECRET, REALM_NAME);
-        //2. Get the userId by username
-        const userId = await getUserIdByUsername(accessToken, REALM_NAME, username);
-        //3. Create a New Role 
-        const roleName = 'user';
-        const roleResponse = await assignRoleToUser(accessToken, REALM_NAME, userId, roleName);
-        console.log("Role Assigned:", roleResponse);
+        // //2. Get the userId by username
+        // const userId = await getUserIdByUsername(accessToken, REALM_NAME, username);
+        // //3. Create a New Role 
+        // const roleName = 'user';
+        // const roleResponse = await assignRoleToUser(accessToken, REALM_NAME, userId, roleName);
+        // console.log("Role Assigned:", roleResponse);
+        //4. Send verification email
+        const userdetails = await getUserDetailsByEmail(email, REALM_NAME, SERVER_URL, accessToken);
+        console.log(userdetails);
+        const response = await sendVerificationEmail(userdetails.id, REALM_NAME, SERVER_URL, accessToken);
+        console.log("Verification link sent:", response);
        
         // For now, just log success
         navigate("/");
