@@ -74,11 +74,78 @@ h2 {
 }
 `;
 
+
+
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+
+
+    const GRANT_TYPE = "client_credentials";
+    const CLIENT_ID = "abhishek";
+    const CLIENT_SECRET = "dSVuLepCsnskzRtzmmXE99PBYkNgapHP";
+    const REALM_NAME = "tatatechnologies";
+    const SERVER_URL = "lemur-17.cloud-iam.com";
+
+    const fetchAccessToken = async (grantType, clientId, clientSecret, realmName) => {
+        try {
+          // API Request to get the access token
+          const tokenResponse = await axios.post(
+            `https://${SERVER_URL}/auth/realms/${realmName}/protocol/openid-connect/token`,
+            new URLSearchParams({
+              grant_type: grantType,
+              client_id: clientId,
+              client_secret: clientSecret
+            }),
+            {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+              }
+            }
+          );
+      
+          const accessToken = tokenResponse.data.access_token;
+          console.log("Access Token for role mapping:", accessToken);
+          
+          if (!accessToken) {
+            throw new Error("Failed to get access token.");
+          }
+      
+          return accessToken; // Return the access token for further use
+        } catch (error) {
+          console.error("Error fetching access token:", error.message);
+          throw error; // Propagate error for handling in the calling function
+        }
+      };
+      
+
+    const sendResetPasswordEmail = async (realmName, userId,token,SERVER_URL) => {
+        try {
+            const url = `https://${SERVER_URL}/auth/realms/admin/realms/${realmName}/users/${userId}/reset-password-email`;
+    
+            const response = await axios.post(
+                url,
+                {},
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+    
+            if (response.status === 204) {
+                console.log('Reset password email sent successfully.');
+            } else {
+                console.log('Failed to send reset password email:', response.data);
+            }
+        } catch (err) {
+            console.error('Error sending reset password email:', err);
+        }
+    };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -87,12 +154,13 @@ const ForgotPassword = () => {
         setErrorMessage('');
 
         try {
-            // Replace this URL with the actual API endpoint for sending the reset link
-            const response = await axios.post('https://your-api-endpoint.com/reset-password', { email });
 
-            if (response.status === 200) {
-                setSuccessMessage('A reset password link has been sent to the submitted email ID.');
-            }
+            //get access token
+            const token = fetchAccessToken(GRANT_TYPE,CLIENT_ID,CLIENT_SECRET,REALM_NAME);
+            console.log("Token:",token);
+           
+
+
         } catch (err) {
             console.error('Error during reset request:', err);
             setErrorMessage('Failed to send reset link. Please try again.');
