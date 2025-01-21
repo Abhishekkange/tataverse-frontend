@@ -146,7 +146,7 @@ const getUserDetailsByEmail = async (email,realm_name,server_url,token) => {
 
     const sendResetPasswordEmail = async (realmName, userId,token,SERVER_URL) => {
         try {
-            const url = `https://${SERVER_URL}/auth/realms/admin/realms/${realmName}/users/${userId}/reset-password-email`;
+            const url = `https://${SERVER_URL}/auth/realms/${realmName}/users/${userId}/reset-password-email`;
             console.log("URL:",url);
     
             const response = await axios.put(
