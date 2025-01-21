@@ -4,6 +4,7 @@ import Signup from "./tatatechverse-signup";
 import Branding from "./branding2";
 import LandingPage from "./landing2";
 import SignIn from "./tatatechverse-signin";
+import ForgotPassword from "./forgot-password";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/landing" element={<LandingPageWrapper />} />
         <Route path="/signin" element={<Signup />} />
         <Route path="/signup" element={<SignIn />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
       </Routes>
     </Router>

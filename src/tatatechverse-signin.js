@@ -417,6 +417,10 @@ const Signin = () => {
             {/* </button> */}
           </div>
 
+          <Link to="/forgot-password" className="forgot-password">
+                    Forgot Password?
+                </Link>
+
 
 
         </div>
