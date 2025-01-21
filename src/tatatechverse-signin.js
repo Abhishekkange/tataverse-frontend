@@ -235,7 +235,7 @@ const Signin = () => {
           }
           else{
 
-            setError("Email not verified. Please verify your email.")
+            setError("Email not verified. Please verify your email before logging .")
           }
       } else {
         setError("User not found.");

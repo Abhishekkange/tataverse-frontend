@@ -320,6 +320,7 @@ const SignUp = () => {
         // Check the response status
         if (response.status === 204) {
             console.log(`Verification email sent successfully to user with ID: ${userId}`);
+            alert("Verification email sent successfully. Please check your inbox.");
         } else {
             console.log('Unexpected response:', response.data);
         }
