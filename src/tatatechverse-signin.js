@@ -207,9 +207,13 @@ const Signin = () => {
       );
 
       const userData = userResponse.data[0];
-      console.log("userData", userData);
+      const isVerified = userData.emailVerified;
+      
       if (userData) {
-        const { username, id } = userData;
+
+        if(isVerified)
+          {
+            const { username, id } = userData;
         console.log("Username:", username);
         console.log("User ID:", id);
 
@@ -219,15 +223,20 @@ const Signin = () => {
           email: userEmail,
         };
 
-
-        //remove this one
-        const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
+         //remove this one
+         const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
           headers: {
             "Content-Type": "application/json",
           },
         });
 
         navigate("/branding", { state: { id, userName: username } });
+
+          }
+          else{
+
+            setError("Email not verified. Please verify your email.")
+          }
       } else {
         setError("User not found.");
       }
