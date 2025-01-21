@@ -412,7 +412,7 @@ const SignUp = () => {
         const userdetails = await getUserDetailsByEmail(email, REALM_NAME, SERVER_URL, accessToken);
         console.log(userdetails);
         const response = await sendVerificationEmail(userdetails.id, REALM_NAME, SERVER_URL, accessToken);
-        console.log("Verification link sent:", response);
+       alert("A link has been resent to your email for verification .");
        
         // For now, just log success
         navigate("/");
