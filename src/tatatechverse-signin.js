@@ -207,6 +207,7 @@ const Signin = () => {
       );
 
       const userData = userResponse.data[0];
+      console.log("userData", userData);
       if (userData) {
         const { username, id } = userData;
         console.log("Username:", username);
