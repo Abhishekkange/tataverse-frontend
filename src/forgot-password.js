@@ -181,9 +181,11 @@ const getUserDetailsByEmail = async (email,realm_name,server_url,token) => {
             //get access token
             const token = await fetchAccessToken(GRANT_TYPE,CLIENT_ID,CLIENT_SECRET,REALM_NAME);
             console.log("Token:",token);
-            const userId = await getUserDetailsByEmail(email,REALM_NAME,SERVER_URL,token);
+            const userdetails = await getUserDetailsByEmail(email,REALM_NAME,SERVER_URL,token);
             console.log("User ID:",userId);
-            const response = await sendResetPasswordEmail(REALM_NAME,email,token,SERVER_URL);
+            const response = await sendResetPasswordEmail(REALM_NAME,userdetails.id,token,SERVER_URL);
+            console.log("Response:",response);
+            console.log("EXECUTED")
             
            
 
