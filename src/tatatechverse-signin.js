@@ -13,7 +13,7 @@ const Signin = () => {
 
   const SERVER_URL = "keycloak.runtimetheory.com"
   const CLIENT_ID = "abhishek"
-  const CLIENT_SECRET = "y6UjZ6pVyOTFsjrfYXYuQ8hokSDDu2r3"
+  const CLIENT_SECRET = "sUxY2zlHtDDW3NoCgyGgF6MUD2cezKC2"
   const REALM_NAME = "tatatechnologies"
 
 
