@@ -242,6 +242,7 @@ const Signin = () => {
     //Login using username
     //1. Get Password token
     const token = await getPasswordToken(SERVER_URL, CLIENT_ID, CLIENT_SECRET, email, password);
+    console.log(token)
     //2. Decode token
     let decodedToken;
     try {
