@@ -171,12 +171,13 @@ const Signin = () => {
       };
 
       const response = await axios.post(
-        `https://${SERVER_URL}/realms/${REALM_NAME}/protocol/openid-connect/token`,
+        `https://keycloak.runtimetheory.com/realms/tatatechnologies/protocol/openid-connect/token`,
         new URLSearchParams(requestData),
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
 
       const { access_token } = response.data;
+      console.log(access_token);
       if (!access_token) {
         setError("Failed to obtain access token.");
         return access_token;
@@ -195,7 +196,7 @@ const Signin = () => {
   const getClientToken = async (server_url, client_id, client_secret) => {
 
     const tokenResponse = await axios.post(
-      `https://${server_url}/realms/${REALM_NAME}/protocol/openid-connect/token`,
+      `https://${server_url}/realms/tatatechnologies/protocol/openid-connect/token`,
       new URLSearchParams({
         grant_type: "client_credentials",
         client_id: client_id,
@@ -238,7 +239,7 @@ const Signin = () => {
       setError("Please enter both email and password.");
       return;
     }
-
+  
     //Login using username
     //1. Get Password token
     const token = await getPasswordToken(SERVER_URL, CLIENT_ID, CLIENT_SECRET, email, password);
@@ -253,7 +254,6 @@ const Signin = () => {
     }
 
     const userEmail = decodedToken.email;
-
 
     //3. Get client token
     const clientToken = await getClientToken(SERVER_URL, CLIENT_ID, CLIENT_SECRET);
