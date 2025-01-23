@@ -424,6 +424,7 @@ const SignUp = () => {
     } catch (error) {
       // Check if the error has a response and log it
       if (error.response) {
+        console.log("Error 712")
         console.error('Error response data:', error.response.data);  // More details about the error
         console.error('Error response status:', error.response.status);  // Status code
         console.error('Error response headers:', error.response.headers);  // Headers
