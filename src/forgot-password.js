@@ -235,7 +235,7 @@ const ForgotPassword = () => {
         try {
             // API Request to get the access token
             const tokenResponse = await axios.post(
-                `https://${SERVER_URL}/auth/realms/${realmName}/protocol/openid-connect/token`,
+                `https://${SERVER_URL}/realms/${realmName}/protocol/openid-connect/token`,
                 new URLSearchParams({
                     grant_type: grantType,
                     client_id: clientId,
@@ -263,7 +263,7 @@ const ForgotPassword = () => {
 
     const getUserDetailsByEmail = async (email, realm_name, server_url, token) => {
         try {
-            const url = `https://${server_url}/auth/admin/realms/${realm_name}/users?email=${encodeURIComponent(email)}`;
+            const url = `https://${server_url}/admin/realms/${realm_name}/users?email=${encodeURIComponent(email)}`;
 
             const response = await axios.get(url, {
                 headers: {
@@ -288,7 +288,7 @@ const ForgotPassword = () => {
 
     const sendResetPasswordEmail = async (realmName, userId, token, SERVER_URL) => {
         try {
-            const url = `https://${SERVER_URL}/auth/admin/realms/${realmName}/users/${userId}/reset-password-email`;
+            const url = `https://${SERVER_URL}/admin/realms/${realmName}/users/${userId}/reset-password-email`;
             console.log("URL:", url);
 
             const response = await axios.put(
