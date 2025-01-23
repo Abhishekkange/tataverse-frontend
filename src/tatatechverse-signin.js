@@ -11,9 +11,9 @@ const Signin = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const SERVER_URL = "keycloak.runtimetheory.com"
+  const SERVER_URL = "lemur-17.cloud-iam.com"
   const CLIENT_ID = "abhishek"
-  const CLIENT_SECRET = "y6UjZ6pVyOTFsjrfYXYuQ8hokSDDu2r3"
+  const CLIENT_SECRET = "dSVuLepCsnskzRtzmmXE99PBYkNgapHP"
   const REALM_NAME = "tatatechnologies"
 
 
@@ -142,13 +142,13 @@ const Signin = () => {
 
 
   //get password token function
-  const getPasswordToken = async (server_url, username, client_ids, client_secretss, password) => {
+  const getPasswordToken = async (server_url, username, client_id, client_secret, username, password) => {
 
     try {
       // Fetch the initial access token
       const requestData = {
-        client_id: client_ids,
-        client_secret: client_secretss,
+        client_id: client_id,
+        client_secret: client_secret,
         grant_type: "password",
         username: email,
         password: password,
@@ -203,11 +203,11 @@ const Signin = () => {
 
   }
 
-  const fetchUserDetails = async (server_url, realm_name,userEmail,accessToken) => {
+  const fetchUserDetails = async (server_url, realm_name,accessToken2) => {
 
     const userResponse = await axios.get(
       `https://${server_url}/auth/admin/realms/${realm_name}/users?email=${userEmail}`,
-      { headers: { Authorization: `Bearer ${accessToken}` } }
+      { headers: { Authorization: `Bearer ${accessToken2}` } }
     );
 
     const userData = userResponse.data[0];
@@ -225,7 +225,7 @@ const Signin = () => {
 
     //Login using username
     //1. Get Password token
-    const token = await getPasswordToken(SERVER_URL, email, CLIENT_ID, CLIENT_SECRET, password);
+    const token = await getPasswordToken(SERVER_URL, email, CLIENT_ID, CLIENT_SECRET, email, password);
     //2. Decode token
     let decodedToken;
       try {
@@ -241,7 +241,7 @@ const Signin = () => {
     //3. Get client token
     const clientToken = await getClientToken(SERVER_URL, CLIENT_ID, CLIENT_SECRET);
     //4. Get user details
-    const userData = await fetchUserDetails(SERVER_URL, REALM_NAME,userEmail, clientToken);
+    const userData = await fetchUserDetails(SERVER_URL, REALM_NAME, clientToken);
     //5. Check if user is verified
     const isVerified = userData.emailVerified;
     if(!isVerified){
