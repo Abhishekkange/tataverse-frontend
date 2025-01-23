@@ -355,8 +355,8 @@ const SignUp = () => {
       `https://keycloak.runtimetheory.com/realms/tatatechnologies/protocol/openid-connect/token`,
         new URLSearchParams({
           grant_type: "client_credentials",
-          client_id: CLIENT_ID,
-          client_secret: CLIENT_SECRET
+          client_id: "abhishek",
+          client_secret: "sUxY2zlHtDDW3NoCgyGgF6MUD2cezKC2"
         }),
         {
           headers: {
