@@ -203,11 +203,11 @@ const Signin = () => {
 
   }
 
-  const fetchUserDetails = async (server_url, realm_name,accessToken2) => {
+  const fetchUserDetails = async (server_url, realm_name,userEmail,accessToken) => {
 
     const userResponse = await axios.get(
       `https://${server_url}/auth/admin/realms/${realm_name}/users?email=${userEmail}`,
-      { headers: { Authorization: `Bearer ${accessToken2}` } }
+      { headers: { Authorization: `Bearer ${accessToken}` } }
     );
 
     const userData = userResponse.data[0];
@@ -241,7 +241,7 @@ const Signin = () => {
     //3. Get client token
     const clientToken = await getClientToken(SERVER_URL, CLIENT_ID, CLIENT_SECRET);
     //4. Get user details
-    const userData = await fetchUserDetails(SERVER_URL, REALM_NAME, clientToken);
+    const userData = await fetchUserDetails(SERVER_URL, REALM_NAME,userEmail, clientToken);
     //5. Check if user is verified
     const isVerified = userData.emailVerified;
     if(!isVerified){
