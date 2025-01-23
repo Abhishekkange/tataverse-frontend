@@ -352,7 +352,7 @@ const SignUp = () => {
     try {
       // First API Request to get the access token
       const tokenResponse = await axios.post(
-      `https://${SERVER_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
+      `https://${SERVER_URL}/realms/${REALM_NAME}/protocol/openid-connect/token`,
         new URLSearchParams({
           grant_type: "client_credentials",
           client_id: CLIENT_ID,
