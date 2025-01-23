@@ -85,9 +85,9 @@ const ForgotPassword = () => {
 
     const GRANT_TYPE = "client_credentials";
     const CLIENT_ID = "abhishek";
-    const CLIENT_SECRET = "dSVuLepCsnskzRtzmmXE99PBYkNgapHP";
+    const CLIENT_SECRET = "y6UjZ6pVyOTFsjrfYXYuQ8hokSDDu2r3";
     const REALM_NAME = "tatatechnologies";
-    const SERVER_URL = "lemur-17.cloud-iam.com";
+    const SERVER_URL = "keycloak.runtimetheory.com";
 
     const fetchAccessToken = async (grantType, clientId, clientSecret, realmName) => {
         try {

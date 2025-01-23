@@ -15,9 +15,9 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // Error message state
 
-  const SERVER_URL = "lemur-17.cloud-iam.com"
+  const SERVER_URL = "keycloak.runtimetheory.com"
   const CLIENT_ID = "abhishek"
-  const CLIENT_SECRET = "dSVuLepCsnskzRtzmmXE99PBYkNgapHP"
+  const CLIENT_SECRET = "y6UjZ6pVyOTFsjrfYXYuQ8hokSDDu2r3"
   const REALM_NAME  = "tatatechnologies"
  
 
