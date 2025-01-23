@@ -142,13 +142,13 @@ const Signin = () => {
 
 
   //get password token function
-  const getPasswordToken = async (server_url, username, client_id, client_secrets, username, password) => {
+  const getPasswordToken = async (server_url, username, client_ids, client_secretss, password) => {
 
     try {
       // Fetch the initial access token
       const requestData = {
-        client_id: client_id,
-        client_secret: client_secrets,
+        client_id: client_ids,
+        client_secret: client_secretss,
         grant_type: "password",
         username: email,
         password: password,
@@ -225,7 +225,7 @@ const Signin = () => {
 
     //Login using username
     //1. Get Password token
-    const token = await getPasswordToken(SERVER_URL, email, CLIENT_ID, CLIENT_SECRET, email, password);
+    const token = await getPasswordToken(SERVER_URL, email, CLIENT_ID, CLIENT_SECRET, password);
     //2. Decode token
     let decodedToken;
       try {
