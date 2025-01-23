@@ -374,53 +374,53 @@ const SignUp = () => {
       console.log("log1 executed")
 
       // Second API Request to create the user
-      const userResponse = await axios.post(
-        `https://${SERVER_URL}/admin/realms/${REALM_NAME}/users`,
-        {
-          username: username,
-          email: email,
-          enabled: true,
-          firstName: firstName,
-          lastName: lastName,
-          credentials: [
-            {
-              type: "password",
-              value: password,
-              temporary: false
-            }
-          ]
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
+      // const userResponse = await axios.post(
+      //   `https://${SERVER_URL}/admin/realms/${REALM_NAME}/users`,
+      //   {
+      //     username: username,
+      //     email: email,
+      //     enabled: true,
+      //     firstName: firstName,
+      //     lastName: lastName,
+      //     credentials: [
+      //       {
+      //         type: "password",
+      //         value: password,
+      //         temporary: false
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${accessToken}`,
+      //       "Content-Type": "application/json"
+      //     }
+      //   }
+      // );
 
-      if (userResponse.status === 201) {
+      // if (userResponse.status === 201) {
 
-        //assign the role to new user
-        //1. Get the Access Token
-        //const accessToken = await fetchAccessToken('client_credentials', CLIENT_ID, CLIENT_SECRET, REALM_NAME);
-        // //2. Get the userId by username
-        // const userId = await getUserIdByUsername(accessToken, REALM_NAME, username);
-        // //3. Create a New Role 
-        // const roleName = 'user';
-        // const roleResponse = await assignRoleToUser(accessToken, REALM_NAME, userId, roleName);
-        // console.log("Role Assigned:", roleResponse);
-        //4. Send verification email
-       // const userdetails = await getUserDetailsByEmail(email, REALM_NAME, SERVER_URL, accessToken);
-       // console.log(userdetails);
-        //const response = await sendVerificationEmail(userdetails.id, REALM_NAME, SERVER_URL, accessToken);
-      // alert("A link has been resent to your email for verification .");
-       console.log("suceess")
-        // For now, just log success
-        navigate("/");
-      } else {
-        console.error('Error during sign-up:', userResponse.data);
-        setError("Failed to sign up. Please try again.");
-      }
+      //   //assign the role to new user
+      //   //1. Get the Access Token
+      //   //const accessToken = await fetchAccessToken('client_credentials', CLIENT_ID, CLIENT_SECRET, REALM_NAME);
+      //   // //2. Get the userId by username
+      //   // const userId = await getUserIdByUsername(accessToken, REALM_NAME, username);
+      //   // //3. Create a New Role 
+      //   // const roleName = 'user';
+      //   // const roleResponse = await assignRoleToUser(accessToken, REALM_NAME, userId, roleName);
+      //   // console.log("Role Assigned:", roleResponse);
+      //   //4. Send verification email
+      //  // const userdetails = await getUserDetailsByEmail(email, REALM_NAME, SERVER_URL, accessToken);
+      //  // console.log(userdetails);
+      //   //const response = await sendVerificationEmail(userdetails.id, REALM_NAME, SERVER_URL, accessToken);
+      // // alert("A link has been resent to your email for verification .");
+      //  console.log("suceess")
+      //   // For now, just log success
+      //   navigate("/");
+      // } else {
+      //   console.error('Error during sign-up:', userResponse.data);
+      //   setError("Failed to sign up. Please try again.");
+      // }
     } catch (error) {
       // Check if the error has a response and log it
       if (error.response) {
