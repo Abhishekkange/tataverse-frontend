@@ -163,8 +163,8 @@ const Signin = () => {
     try {
       // Fetch the initial access token
       const requestData = {
-        client_id: client_id,
-        client_secret: client_secret,
+        client_id: "abhishek",
+        client_secret: "sUxY2zlHtDDW3NoCgyGgF6MUD2cezKC2",
         grant_type: "password",
         username: email,
         password: password,
@@ -177,6 +177,7 @@ const Signin = () => {
       );
 
       const { access_token } = response.data;
+      console.log("Below is access token")
       console.log(access_token);
       if (!access_token) {
         setError("Failed to obtain access token.");
