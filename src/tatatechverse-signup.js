@@ -188,7 +188,7 @@ const SignUp = () => {
 
   const getUserDetailsByEmail = async (email,realm_name,server_url,token) => {
     try {
-        const url = `https://${server_url}/auth/admin/realms/${realm_name}/users?email=${encodeURIComponent(email)}`;
+        const url = `https://${server_url}/admin/realms/${realm_name}/users?email=${encodeURIComponent(email)}`;
 
         const response = await axios.get(url, {
             headers: {
@@ -212,7 +212,7 @@ const SignUp = () => {
 
   //fetching the userId by username
   async function getUserIdByUsername(bearerToken, realm, username) {
-    const url = `https://${SERVER_URL}/auth/admin/realms/${realm}/users?username=${username}`;
+    const url = `https://${SERVER_URL}/admin/realms/${realm}/users?username=${username}`;
   
     const response = await fetch(url, {
       method: 'GET',
@@ -241,7 +241,7 @@ const SignUp = () => {
 
   //Function to assign the role to new created user
   async function assignRoleToUser(bearerToken, realm, userId, roleName) {
-    const url = `https://${SERVER_URL}/auth/admin/realms/${realm}/users/${userId}/role-mappings/realm`;
+    const url = `https://${SERVER_URL}/admin/realms/${realm}/users/${userId}/role-mappings/realm`;
   
     const rolePayload = [
       {
