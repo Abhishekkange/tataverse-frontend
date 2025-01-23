@@ -301,7 +301,7 @@ const SignUp = () => {
   const sendVerificationEmail = async (userId, realmName, serverUrl, token) => {
     try {
         // Construct the endpoint URL
-        const url = `https://${serverUrl}/auth/admin/realms/${realmName}/users/${userId}/send-verify-email`;
+        const url = `https://${serverUrl}/admin/realms/${realmName}/users/${userId}/send-verify-email`;
 
         console.log("API Endpoint:", url);
 
