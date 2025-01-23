@@ -17,7 +17,7 @@ const SignUp = () => {
 
   const SERVER_URL = "keycloak.runtimetheory.com"
   const CLIENT_ID = "abhishek"
-  const CLIENT_SECRET = "y6UjZ6pVyOTFsjrfYXYuQ8hokSDDu2r3"
+  const CLIENT_SECRET = "sUxY2zlHtDDW3NoCgyGgF6MUD2cezKC2"
   const REALM_NAME  = "tatatechnologies"
  
 
@@ -271,9 +271,9 @@ const SignUp = () => {
     try {
       // API Request to get the access token
       const tokenResponse = await axios.post(
-        `https://${SERVER_URL}/auth/realms/${realmName}/protocol/openid-connect/token`,
+        `https://${SERVER_URL}/realms/${realmName}/protocol/openid-connect/token`,
         new URLSearchParams({
-          grant_type: grantType,
+          grant_type: 'client_credentials',
           client_id: clientId,
           client_secret: clientSecret
         }),
@@ -352,7 +352,7 @@ const SignUp = () => {
     try {
       // First API Request to get the access token
       const tokenResponse = await axios.post(
-      `https://${SERVER_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
+      `https://${SERVER_URL}/realms/${REALM_NAME}/protocol/openid-connect/token`,
         new URLSearchParams({
           grant_type: "client_credentials",
           client_id: CLIENT_ID,
