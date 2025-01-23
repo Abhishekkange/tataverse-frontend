@@ -273,7 +273,7 @@ const SignUp = () => {
       const tokenResponse = await axios.post(
         `https://${SERVER_URL}/realms/${realmName}/protocol/openid-connect/token`,
         new URLSearchParams({
-          grant_type: grantType,
+          grant_type: 'client_credentials',
           client_id: clientId,
           client_secret: clientSecret
         }),
