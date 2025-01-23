@@ -142,7 +142,7 @@ const Signin = () => {
 
 
   //get password token function
-  const getPasswordToken = async (server_url, username, client_id, client_secret, username, password) => {
+  const getPasswordToken = async (server_url, client_id, client_secret, username, password) => {
 
     try {
       // Fetch the initial access token
@@ -225,11 +225,11 @@ const Signin = () => {
 
     //Login using username
     //1. Get Password token
-    const token = await getPasswordToken(SERVER_URL, email, CLIENT_ID, CLIENT_SECRET, email, password);
+    const token = await getPasswordToken(SERVER_URL, CLIENT_ID, CLIENT_SECRET, email, password);
     //2. Decode token
     let decodedToken;
       try {
-        decodedToken = jwtDecode(access_token);
+        decodedToken = jwtDecode(token);
       } catch (err) {
         setError("Invalid token. Please try again.");
         return;
