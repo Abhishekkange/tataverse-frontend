@@ -171,7 +171,7 @@ const Signin = () => {
       };
 
       const response = await axios.post(
-        `https://${SERVER_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
+        `https://${SERVER_URL}/realms/${REALM_NAME}/protocol/openid-connect/token`,
         new URLSearchParams(requestData),
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
@@ -195,7 +195,7 @@ const Signin = () => {
   const getClientToken = async (server_url, client_id, client_secret) => {
 
     const tokenResponse = await axios.post(
-      `https://${server_url}/auth/realms/${REALM_NAME}/protocol/openid-connect/token`,
+      `https://${server_url}/realms/${REALM_NAME}/protocol/openid-connect/token`,
       new URLSearchParams({
         grant_type: "client_credentials",
         client_id: client_id,
@@ -222,7 +222,7 @@ const Signin = () => {
   const fetchUserDetails = async (server_url, realm_name, accessToken2, userEmail) => {
 
     const userResponse = await axios.get(
-      `https://${server_url}/auth/admin/realms/${realm_name}/users?email=${userEmail}`,
+      `https://${server_url}/admin/realms/${realm_name}/users?email=${userEmail}`,
       { headers: { Authorization: `Bearer ${accessToken2}` } }
     );
 
