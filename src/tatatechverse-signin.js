@@ -137,6 +137,22 @@ const Signin = () => {
       color: '#FFFFFF',
       padding: '0 10px',
       fontSize: '14px',
+    },
+    forgotPassword: {
+      color: '#FFFFFF',
+      textDecoration: 'none',
+      alignSelf: 'flex-end',
+      marginBottom: '20px',
+      fontSize: '14px',
+      '@media (max-width: 768px)': {
+        marginRight: '10%',
+      }
+    },
+    forgotPasswordContainer: {
+      width: '53%',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      marginBottom: '10px',
     }
   };
 
@@ -203,7 +219,7 @@ const Signin = () => {
 
   }
 
-  const fetchUserDetails = async (server_url, realm_name,accessToken2,userEmail) => {
+  const fetchUserDetails = async (server_url, realm_name, accessToken2, userEmail) => {
 
     const userResponse = await axios.get(
       `https://${server_url}/auth/admin/realms/${realm_name}/users?email=${userEmail}`,
@@ -213,7 +229,7 @@ const Signin = () => {
     const userData = userResponse.data[0];
     return userData;
 
-   
+
   }
 
   const handleLogin = async () => {
@@ -228,26 +244,26 @@ const Signin = () => {
     const token = await getPasswordToken(SERVER_URL, CLIENT_ID, CLIENT_SECRET, email, password);
     //2. Decode token
     let decodedToken;
-      try {
-        decodedToken = jwtDecode(token);
-      } catch (err) {
-        setError("Invalid token. Please try again.");
-        return;
-      }
+    try {
+      decodedToken = jwtDecode(token);
+    } catch (err) {
+      setError("Invalid token. Please try again.");
+      return;
+    }
 
-      const userEmail = decodedToken.email;
+    const userEmail = decodedToken.email;
 
 
     //3. Get client token
     const clientToken = await getClientToken(SERVER_URL, CLIENT_ID, CLIENT_SECRET);
     //4. Get user details
-    const userData = await fetchUserDetails(SERVER_URL, REALM_NAME, clientToken,userEmail);
+    const userData = await fetchUserDetails(SERVER_URL, REALM_NAME, clientToken, userEmail);
     //5. Check if user is verified
     const isVerified = userData.emailVerified;
-    if(!isVerified){
+    if (!isVerified) {
       setError("Email not verified. Please verify your email before logging .")
     }
-    else{
+    else {
 
       const { username, id } = userData;
       console.log("Username:", username);
@@ -524,6 +540,12 @@ const Signin = () => {
               onChange={(e) => setPassword(e.target.value)}
               style={styles.input}
             />
+            <div style={styles.forgotPasswordContainer}>
+
+              <Link to="/forgot-password" style={styles.forgotPassword}>
+                Forgot Password?
+              </Link>
+            </div>
 
             {error && <p style={styles.error}>{error}</p>}
 
@@ -550,9 +572,7 @@ const Signin = () => {
             {/* </button> */}
           </div>
 
-          <Link to="/forgot-password" className="forgot-password">
-            Forgot Password?
-          </Link>
+
 
 
 
