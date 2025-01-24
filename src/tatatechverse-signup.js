@@ -508,7 +508,7 @@ const SignUp = () => {
         // const roleName = 'user';
         //ROLE MAPPING STEPS 
         //a. get client-id
-        const clientID = await getClientId(accessToken);
+        const clientID = "67c16309-11d9-499b-92e0-fe8fdd0dea9c"
         console.log("client ID :",clientID);
         //b. get user-id
         const userdetails = await getUserDetailsByEmail(email, REALM_NAME, SERVER_URL, accessToken);
