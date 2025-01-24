@@ -327,15 +327,45 @@ const SignUp = () => {
 
   const assignRoleToUser2 = async (user_id2, client_id2, roleName, token) => {
     try {
-      // Role object to assign to the user
-      const roleToAssign = [
+      // Fetch all roles for the given client to find the role ID and container ID
+      const rolesResponse = await fetch(
+        `https://keycloak.runtimetheory.com/admin/realms/tatatechnologies/clients/${client_id2}/roles`,
         {
-          name: roleName,
-          clientRole: true,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      // Check if fetching roles was successful
+      if (!rolesResponse.ok) {
+        throw new Error(
+          `Failed to fetch roles: ${rolesResponse.status} - ${rolesResponse.statusText}`
+        );
+      }
+  
+      const roles = await rolesResponse.json();
+  
+      // Find the role object with the given roleName
+      const roleToAssign = roles.find((role) => role.name === roleName);
+  
+      if (!roleToAssign) {
+        throw new Error(`Role with name "${roleName}" not found.`);
+      }
+  
+      // Prepare the role data for the POST request
+      const roleData = [
+        {
+          id: roleToAssign.id,
+          name: roleToAssign.name,
+          clientRole: roleToAssign.clientRole,
+          containerId: roleToAssign.containerId,
         },
       ];
   
-      // Make the POST request
+      // Make the POST request to assign the role
       const response = await fetch(
         `https://keycloak.runtimetheory.com/admin/realms/tatatechnologies/users/${user_id2}/role-mappings/clients/${client_id2}`,
         {
@@ -344,17 +374,19 @@ const SignUp = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(roleToAssign), // Send role details in the body
+          body: JSON.stringify(roleData),
         }
       );
   
-      // Check if the response is successful
+      // Check if the role assignment was successful
       if (!response.ok) {
-        throw new Error(`Failed to assign role: ${response.status} - ${response.statusText}`);
+        throw new Error(
+          `Failed to assign role: ${response.status} - ${response.statusText}`
+        );
       }
   
       if (response.status === 204) {
-        console.log("Role assigned successfully.");
+        console.log(`Role "${roleName}" assigned successfully.`);
       } else {
         console.log(`Unexpected response: ${response.status}`);
       }
@@ -362,15 +394,6 @@ const SignUp = () => {
       console.error("Error assigning role:", error.message);
     }
   };
-  
-  // Example usage
-  const user_id2 = "cfff190a-e5ac-41b5-a3dc-209098c706a4"; // User ID
-  const client_id2 = "67c16309-11d9-499b-92e0-fe8fdd0dea9c"; // Client ID
-  const roleName = "manager"; // Role name
-  const token = "your-bearer-token-here";
-  
-  assignRoleToUser2(user_id2, client_id2, roleName, token);
-  
 
   const sendVerificationEmail = async (userId, realmName, serverUrl, token) => {
     try {
