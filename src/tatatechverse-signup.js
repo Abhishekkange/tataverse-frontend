@@ -400,8 +400,6 @@ const SignUp = () => {
         // Construct the endpoint URL
         const url = `https://${serverUrl}/admin/realms/${realmName}/users/${userId}/send-verify-email`;
 
-        console.log("API Endpoint:", url);
-
         // Make the API request
         const response = await axios.put(
             url,
@@ -516,9 +514,8 @@ const SignUp = () => {
         //c. assign role to user
         const roleAssigned = await assignRoleToUser2(clientID,userdetails.id,'manager',accessToken)
         console.log("Role Assigned:", roleAssigned);
+        console.log("Role Assigned run above")
         //4. Send verification email
-       
-        console.log(userdetails);
         const response = await sendVerificationEmail(userdetails.id, REALM_NAME, SERVER_URL, accessToken);
        alert("A link has been resent to your email for verification .");
        console.log("suceess")
