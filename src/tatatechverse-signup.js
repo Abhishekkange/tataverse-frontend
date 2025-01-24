@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link for routing
+import { Await, Link } from "react-router-dom"; // Import Link for routing
 import axios from "axios"; // Import axios
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
@@ -298,6 +298,80 @@ const SignUp = () => {
     }
   };
 
+  //Function to get client-id
+  const getClientId = async(token)=>{
+
+    try {
+      // Make the API request
+      const response = await fetch('https://keycloak.runtimetheory.com/admin/realms/tatatechnologies/clients', {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+      // Check if the response is okay
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.status} - ${response.statusText}`);
+      }
+  
+      // Parse the JSON response
+      const clients = await response.json();
+      return clients[0].id;
+    } catch (error) {
+      console.error("Error fetching or handling clients:", error.message);
+    }
+
+  }
+
+  const assignRoleToUser2 = async (user_id2, client_id2, roleName, token) => {
+    try {
+      // Role object to assign to the user
+      const roleToAssign = [
+        {
+          name: roleName,
+          clientRole: true,
+        },
+      ];
+  
+      // Make the POST request
+      const response = await fetch(
+        `https://keycloak.runtimetheory.com/admin/realms/tatatechnologies/users/${user_id2}/role-mappings/clients/${client_id2}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(roleToAssign), // Send role details in the body
+        }
+      );
+  
+      // Check if the response is successful
+      if (!response.ok) {
+        throw new Error(`Failed to assign role: ${response.status} - ${response.statusText}`);
+      }
+  
+      if (response.status === 204) {
+        console.log("Role assigned successfully.");
+      } else {
+        console.log(`Unexpected response: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error assigning role:", error.message);
+    }
+  };
+  
+  // Example usage
+  const user_id2 = "cfff190a-e5ac-41b5-a3dc-209098c706a4"; // User ID
+  const client_id2 = "67c16309-11d9-499b-92e0-fe8fdd0dea9c"; // Client ID
+  const roleName = "manager"; // Role name
+  const token = "your-bearer-token-here";
+  
+  assignRoleToUser2(user_id2, client_id2, roleName, token);
+  
+
   const sendVerificationEmail = async (userId, realmName, serverUrl, token) => {
     try {
         // Construct the endpoint URL
@@ -409,10 +483,17 @@ const SignUp = () => {
         const userId = await getUserIdByUsername(accessToken, REALM_NAME, username);
         // //3. Create a New Role 
         // const roleName = 'user';
-        // const roleResponse = await assignRoleToUser(accessToken, REALM_NAME, userId, roleName);
-        // console.log("Role Assigned:", roleResponse);
-        //4. Send verification email
+        //ROLE MAPPING STEPS 
+        //a. get client-id
+        const clientID = await getClientId(accessToken);
+        //b. get user-id
         const userdetails = await getUserDetailsByEmail(email, REALM_NAME, SERVER_URL, accessToken);
+
+        //c. assign role to user
+        const roleAssigned = await assignRoleToUser2(user,userdetails.id,'manager',accessToken)
+        console.log("Role Assigned:", roleAssigned);
+        //4. Send verification email
+       
         console.log(userdetails);
         const response = await sendVerificationEmail(userdetails.id, REALM_NAME, SERVER_URL, accessToken);
        alert("A link has been resent to your email for verification .");
