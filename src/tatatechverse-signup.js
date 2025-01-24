@@ -512,7 +512,7 @@ const SignUp = () => {
         const userdetails = await getUserDetailsByEmail(email, REALM_NAME, SERVER_URL, accessToken);
         console.log("User Id:",userId);
         //c. assign role to user
-        const roleAssigned = await assignRoleToUser2(clientID,userdetails.id,'manager',accessToken)
+        const roleAssigned = await assignRoleToUser2(userdetails.id,clientID,'manager',accessToken)
         console.log("Role Assigned:", roleAssigned);
         console.log("Role Assigned run above")
         //4. Send verification email
