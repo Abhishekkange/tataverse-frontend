@@ -202,7 +202,7 @@ const Signin = () => {
       new URLSearchParams({
         grant_type: "client_credentials",
         client_id: client_id,
-        client_secret: client_secret,
+        client_secret: "Dl27gRpmb72ftKJTAkeJcvi8aiuAOFFg",
       }),
       { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
