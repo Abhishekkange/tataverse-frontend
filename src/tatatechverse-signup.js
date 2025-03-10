@@ -17,7 +17,7 @@ const SignUp = () => {
 
   const SERVER_URL = "keycloak.runtimetheory.com"
   const CLIENT_ID = "abhishek"
-  const CLIENT_SECRET = "sUxY2zlHtDDW3NoCgyGgF6MUD2cezKC2"
+  const CLIENT_SECRET = "Dl27gRpmb72ftKJTAkeJcvi8aiuAOFFg"
   const REALM_NAME  = "tatatechnologies"
  
 
