@@ -166,7 +166,7 @@ const Signin = () => {
         client_id: "abhishek",
         client_secret: "Dl27gRpmb72ftKJTAkeJcvi8aiuAOFFg",
         grant_type: "password",
-        username: email,
+        username: username,
         password: password,
       };
 
