@@ -29,6 +29,7 @@ const ImageUpload = () => {
     const renamedFile = new File([selectedFile], uniqueFileName, { type: selectedFile.type });
   
     formData.append('image', renamedFile);
+    console,log("file name",renamedFile.name)
     formData.append('username', username); // Append the username to the FormData
 
     try {
