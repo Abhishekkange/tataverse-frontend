@@ -25,7 +25,10 @@ const ImageUpload = () => {
     }
 
     const formData = new FormData();
-    formData.append('image', selectedFile);
+    const uniqueFileName = `${Date.now()}_${selectedFile.name}`;
+    const renamedFile = new File([selectedFile], uniqueFileName, { type: selectedFile.type });
+  
+    formData.append('image', renamedFile);
     formData.append('username', username); // Append the username to the FormData
 
     try {
