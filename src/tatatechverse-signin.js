@@ -287,6 +287,7 @@ const Signin = () => {
 
       
 
+
       navigate("/branding", { state: { id, userName: username } });
     }
 
@@ -416,8 +417,6 @@ const Signin = () => {
         "Content-Type": "application/json",
       },
     });
-
-    console.log(response);
 
 
 
