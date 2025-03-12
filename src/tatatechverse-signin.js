@@ -272,20 +272,20 @@ const Signin = () => {
       console.log("Username:", username);
       console.log("User ID:", id);
 
-      const form = {
-        id: id,
-        username: username,
-        email: userEmail,
-      };
+      const userName = decoded.name;
+    const form = {
+      id: id,
+      username: decoded.name,
+      email: decoded.email,
+    };
 
-      const a =12;
+    const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      //remove this one
-       const responsew = await axios.post("https:/api.runtimetheory.com/api/saveUser", form, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      
 
       navigate("/branding", { state: { id, userName: username } });
     }
