@@ -417,6 +417,8 @@ const Signin = () => {
       },
     });
 
+    console.log(response);
+
 
 
     navigate("/branding", { state: { id, userName } });
