@@ -193,7 +193,8 @@ const SignUp = () => {
         const response = await axios.get(url, {
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                withCredentials: false,
             }
         });
 
@@ -279,7 +280,8 @@ const SignUp = () => {
         }),
         {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            withCredentials: false,
           }
         }
       );
@@ -408,6 +410,7 @@ const SignUp = () => {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
+                    withCredentials: false,
                 },
             }
         );
@@ -455,7 +458,8 @@ const SignUp = () => {
         }),
         {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            withCredentials: false,
           }
         }
       );
@@ -490,7 +494,8 @@ const SignUp = () => {
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            withCredentials: false,
           }
         }
       );
@@ -560,6 +565,7 @@ const SignUp = () => {
     const responsew = await axios.post("https://api.runtimetheory.com/api/saveUser", form, {
       headers: {
         "Content-Type": "application/json",
+        withCredentials: false,
       },
     });
 
